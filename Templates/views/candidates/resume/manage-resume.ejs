@@ -1,0 +1,793 @@
+<%- include('../partials/main_header') %>
+    <%- include('../partials/navebar_header') %>
+        <%- include('../partials/side_bar',{user}) %>
+            <!-- Include toastr styles and scripts -->
+            <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script> -->
+
+
+            <style>
+                /* custom-notifications.css */
+                .notification {
+                    display: none;
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    color: rgb(255, 255, 255);
+                    font-size: 16px;
+                    background-color: #2ed53c;
+                    /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); */
+                }
+
+                .notification.success {
+                    background-color: #33de38;
+                    display: block;
+                }
+
+                .notification.error {
+                    background-color: #f44336;
+                }
+
+                /* Adjust the animation duration and keyframes as needed */
+                @keyframes slideIn {
+                    from {
+                        transform: translateY(100%);
+                    }
+
+                    to {
+                        transform: translateY(0);
+                    }
+                }
+
+                @keyframes slideOut {
+                    from {
+                        transform: translateY(0);
+                    }
+
+                    to {
+                        transform: translateY(100%);
+                    }
+                }
+
+                .input-error {
+                    font-size: 12px;
+                    margin-top: 5px;
+                    margin-bottom: 3px;
+                }
+
+                .plus-icon a {
+                    height: 3rem;
+                    width: 3rem;
+                    background: #E91E63;
+                    display: block;
+                    border-radius: 0.625rem;
+                    line-height: 3rem;
+                    margin-left: 1rem;
+                    font-size: 1.2rem;
+                    text-align: center;
+                    color: #E91E63;
+                }
+
+                .text-black {
+                    color: #e3d8d8 !important;
+                }
+
+                /* Custom CSS class for Toastr notifications
+        .success-custom-toast {
+            width: 410px !important;
+            height: 120px !important;
+            background-color: green !important;
+            margin-bottom: 20px !important;
+            font-size: 18px !important;
+        }
+
+        .error-custom-toast {
+            width: 410px !important;
+            height: 120px !important;
+            background-color: red !important;
+            margin-bottom: 20px !important;
+            font-size: 18px !important;
+
+        } */
+            </style>
+            <!--**********************************
+            Content body start
+        ***********************************-->
+            <div class="content-body">
+                <div class="container-fluid">
+
+
+                    <div class="row page-titles">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active"><a href="/candidate/dashboard">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Resume Manage</a></li>
+                        </ol>
+                    </div>
+                    <!-- row -->
+                    <div class="row">
+
+                        <div class="col-xl-6">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="profile-blog">
+                                                <div class="plus-icon">
+                                                    <h4 class="text-primary">Upload Resume
+                                                       
+
+                                                                <%if(!user.candidateProfile ||
+                                                                    !user.candidateProfile.resume){%>
+                                                                    <a data-bs-toggle="modal" href="#Resume"
+                                                                        role="button" title="Edit" style="float: right;"
+                                                                        class="text-black"><i
+                                                                            class="fas fa-plus"></i></a>
+                                                                    <%}%>
+                                                    </h4>
+                                                </div>
+                                                <div class="panel-body wt-panel-body">
+                                                    <div class="twm-panel-inner">
+                                                        <%if(user.resumeProfile && user.resumeProfile.resume){%>
+                                                            <p><b>
+                                                                    <%=user.resumeProfile.resume_title%>
+                                                                </b></p>
+                                                            <p><a class="text-danger font-w700" target="_blank"
+                                                                    href="/db_assets/pdf_files/<%= user.resumeProfile.resume %>">
+                                                                    Download & View Resume </a></p>
+                                                       <%}%>
+                                                        <%if(!user.resumeProfile ||
+                                                                    !user.resumeProfile.resume){%>
+                                                                    <p><b>You need to upload you resume</b></p>
+                                                        <%}%>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-xl-6">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="profile-blog">
+                                                <div class="plus-icon">
+                                                    <h4 class="text-primary">Skills
+                                                        <a data-bs-toggle="modal" href="#Skill" role="button"
+                                                            title="Edit" style="float: right;" class="text-black"><i
+                                                                class="fas fa-plus"></i></a>
+                                                    </h4>
+                                                </div>
+                                                <%if(user.skillProfile && user.skillProfile.skill_name){ %>
+                                                    <div class="profile-skills mb-5">
+                                                      <%for(let i=0;i< user.skillProfile.skill_name.length;i++){%>
+                                                        <a href="javascript:void(0);"
+                                                            class="btn btn-primary light btn-xs mb-1">
+                                                            <%= user.skillProfile.skill_name[i] %>
+                                                        </a>
+                                                      <%}%>
+                                                    </div>
+                                                <%}%>
+                                                        <%if (!user.skillProfile ||
+                                                            !user.skillProfile.skill_name){%>
+                                                            <div class="profile-skills mb-5">
+                                                                You need to add resume skills
+                                                            </div>
+                                                        <% } %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="profile-blog">
+                                                <div class="plus-icon mb-5">
+                                                    <h4 class="text-primary">Employment Detail
+                                                        <a data-bs-toggle="modal" href="#employment" role="button"
+                                                            title="Edit" style="float: right;" class="text-black"><i
+                                                                class="fas fa-plus"></i></a>
+                                                    </h4>
+                                                </div>
+                                                <div class="profile-skills mb-5">
+                                                    <div class="panel panel-default mb-3">
+                                                        <%if (user.empExProfile){%>
+                                                            <% for(let i=0;i< user.empExProfile.emp_job_detail.length>0;i++)
+                                                             {%>   
+                                                            <div class="card p-a20" style="box-shadow: 0rem 0.3125rem 13rem 15rem rgba(82, 63, 105, 0.05);">
+                                                                <div class="card-body">
+                                                                    <p><%=user.empExProfile.emp_job_detail[i]%></p>
+                                                                    <p><b><%=user.empExProfile.designation[i]%></b></p>
+                                                                    <p><%=user.empExProfile.organization[i]%></p>
+                                                                    <p>Working Since:
+                                                                        <b> <small style="font-size: 16px;"><%=user.empExProfile.working_start_date[i].toLocaleDateString()%> </small> </b>
+                                                                        -
+                                                                        <b> <small style="font-size: 16px;"><%=user.empExProfile.working_end_date[i].toLocaleDateString()%> </small> </b>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <%}%>
+                                                    <%}%>
+                                                    <%if (!user.empExProfile){%>
+                                                                
+                                                                    <div class="profile-skills mb-5">
+                                                                        You need to add employee experience
+                                                                    </div>
+                                                       <%}%>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="panel panel-default mb-3">
+                                                <div class="panel-heading wt-panel-heading panel-heading-with-btn ">
+                                                    <div class="plus-icon mb-5">
+                                                        <h4 class="text-primary">Education
+                                                            <a data-bs-toggle="modal" href="#Education" role="button"
+                                                                title="Edit" style="float: right;" class="text-black"><i
+                                                                    class="fas fa-plus"></i></a>
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                                <%if (user.educationProfile){%>
+                                                 <%for(let i=0;i< user.educationProfile.edu_degree.length;i++)
+                                                  {%>
+                                                    <div class="card p-a20" style="box-shadow: 0rem 0.3125rem 13rem 15rem rgba(82, 63, 105, 0.05);">
+                                                        <div class="card-body">
+                                                            <p><%=user.educationProfile.edu_institute_name[i] %></p>
+                                                            <p><%=user.educationProfile.edu_pass_year[i] %></p>
+                                                            <p><b><%=user.educationProfile.edu_degree[i] %></b></p>
+                                                        </div>
+                                                    </div>
+                                                <%}%>
+                                            <%}%>
+                                                <%if (!user.educationProfile){%>
+                                                <div class="profile-skills mb-5">
+                                                    You need to add education detail
+                                                </div>
+                                                <%} %>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <!--**********************************
+        Content body end
+    ***********************************-->
+            <!-- Add Resume Modal -->
+            <div class="modal fade twm-saved-jobs-view" id="Resume" tabindex="-1" style="display: none;"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" style="margin-top: 28px;">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="text-primary mb-4">Resume</h4>
+                                <form id="upload_resume" action="/candidates/upload-resume" method='POST'
+                                    enctype="multipart/form-data">
+                                    <!-- @csrf -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Resume Title</label>
+                                        <input type="text" name="resume_title"
+                                            placeholder="Senior UI / UX Designer and Developer at Google INC"
+                                            class="form-control">
+                                        <input type="hidden" name="_id" value="<%=user._id%>">
+                                    </div>
+
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Resume Upload</label>
+                                        <input type="file" name="resume" accept=".txt,.pdf" class="form-control">
+                                    </div>
+
+                                    <button class="btn btn-primary" type="submit" id="resumeBtn">Save</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add skill Modal -->
+            <div class="modal fade twm-saved-jobs-view" id="Skill" tabindex="-1" style="display: none;"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" style="margin-top: 28px;">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="text-primary mb-4">Add Skill</h4>
+                                <form id="skill_form" action="/candidates/add-skill" method="POST">
+                                    <div class="mb-3">
+                                        <label class="form-label">Skill Name</label>
+                                        <input type="text" name="skill_name" placeholder="HTML" class="form-control">
+                                    </div>
+
+                                    <button class="btn btn-primary" id="skill_btn" type="submit">Save</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Add emp Modal -->
+            <div class="modal fade twm-saved-jobs-view" id="employment" tabindex="-1" style="display: none;"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" style="margin-top: 28px;">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="text-primary mb-4">Add Employemt Experience</h4>
+                                <form id="emp_store_form" action='/candidates/add-emp-experience' method='POST'>
+                                    <div class="mb-3">
+                                        <label class="form-label">Your Designation</label>
+                                        <input type="text" name="designation" placeholder="Senior Laravel Devloper"
+                                            class="form-control">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Your Organization</label>
+                                        <input type="text" name="organization" placeholder="Workwox Sahiwal"
+                                            class="form-control">
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="mb-3 col-md-6 col-6">
+                                            <label class="form-label">Started Working From</label>
+                                            <input type="date" name="working_start_date" class="form-control">
+                                        </div>
+
+                                        <div class="mb-3 col-md-6 col-6">
+                                            <label class="form-label">Worked Till</label>
+                                            <input type="date" name="working_end_date" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Describe your Job</label>
+                                        <textarea style="height: 80px;" type="text" name="emp_job_detail"
+                                            placeholder="Describe your Job" class="form-control"> </textarea>
+                                    </div>
+
+                                    <button class="btn btn-primary" type="submit" id="emp_btn">Save</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Add Edu Modal -->
+            <div class="modal fade twm-saved-jobs-view" id="Education" tabindex="-1" style="display: none;"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" style="margin-top: 28px;">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="text-primary mb-4">Add Education</h4>
+                                <form id="edu_store_form" action="/candidates//add-education" method='POST'>
+                                    <div class="mb-3">
+                                        <label class="form-label">Degree Title</label>
+                                        <input type="text" name="edu_degree"
+                                            placeholder="Bachelor of Computer Applications" class="form-control">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Passing Year</label>
+                                        <input type="text" name="edu_pass_year" placeholder="2022" class="form-control">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Institute Name</label>
+                                        <input type="text" name="edu_institute_name" placeholder="Lahore University"
+                                            class="form-control">
+                                    </div>
+
+                                    <button class="btn btn-primary" type="submit" id="edu_store_btn">Save</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+            <script>
+
+
+                function showSuccessNotification(message) {
+                    const notification = document.createElement('div');
+                    notification.className = 'notification success';
+                    notification.innerText = message;
+                    document.body.appendChild(notification);
+
+                    setTimeout(() => {
+                        notification.style.animation = 'slideOut 0.5s forwards';
+                        setTimeout(() => {
+                            notification.remove();
+                        }, 500);
+                    }, 3000); // Show for 3 seconds
+                }
+                function showErrorNotification(message) {
+                    const notification = document.createElement('div');
+                    notification.className = 'notification error';
+                    notification.innerText = message;
+                    document.body.appendChild(notification);
+
+                    setTimeout(() => {
+                        notification.style.animation = 'slideOut 0.5s forwards';
+                        setTimeout(() => {
+                            notification.remove();
+                        }, 500);
+                    }, 8000); // Show for 3 seconds
+                }
+
+                document.addEventListener('DOMContentLoaded', () => {
+                    const resumeForm = document.getElementById('upload_resume');
+                    const resumeTitleInput = document.querySelector('[name="resume_title"]');
+                    const resumeInput = document.querySelector('[name="resume"]');
+                    const resumeBtn = document.getElementById('resumeBtn');
+
+
+                    const notificationType = '<%=notificationType%>'
+                    if (notificationType === 'success') {
+                        // Display the success notification
+                        showSuccessNotification('Your resume has been uploaded successfully');
+                        history.replaceState({}, document.title, '/candidates/manage-resume');
+                    }
+
+                    const allowedFormats = ['txt', 'pdf'];
+                    const titleRegex = /^[A-Za-z]+$/;
+
+                    resumeForm.addEventListener('submit', async (e) => {
+                        const fileTitle = resumeTitleInput.value.trim();
+                        const fileName = resumeInput.value.trim();
+                        const fileExtension = fileName.split('.').pop().toLowerCase();
+
+                        if (!titleRegex.test(fileTitle)) {
+                            alert("Resume title should only contain letters.");
+                            e.preventDefault();
+                            return;
+                        }
+                        if (fileTitle === "") {
+                            alert("Please fill out the resume title.");
+                            e.preventDefault();
+                            return;
+                        }
+
+                        if (fileName === "") {
+                            alert("Please choose a resume file.");
+                            e.preventDefault();
+                            return;
+                        }
+
+                        if (!allowedFormats.includes(fileExtension)) {
+                            alert("Please upload a TXT or PDF file.");
+                            e.preventDefault();
+                            return;
+                        }
+                        else {
+                            resumeBtn.textContent = 'Saving...';
+                            resumeBtn.disabled = true;
+                        }
+                        try {
+                            const formData = new FormData(resumeForm);
+                            const response = await fetch(resumeForm.action, {
+                                method: 'POST',
+                                body: formData
+                            });
+
+                            if (response.ok) {
+                                window.location.href = '/candidates/manage-resume?notification=success';
+                            } else {
+                                throw new Error('An error occurred during form submission.');
+                            }
+                        } catch (error) {
+                            showErrorNotification('There was an error uploading your resume.');
+                        } finally {
+                            resumeBtn.textContent = 'Save';
+                            resumeBtn.disabled = false;
+                        }
+                    });
+                });
+                // skill js
+
+                document.addEventListener('DOMContentLoaded', () => {
+                    const skillForm = document.getElementById('skill_form');
+                    const skillInput = document.querySelector('[name="skill_name"]');
+                    const skillBtn = document.getElementById('skill_btn');
+
+                    const notificationType = '<%=notificationType%>'
+                    if (notificationType === '201') {
+                        // Display the success notification
+                        showSuccessNotification('Your skill has been added successfully');
+                        history.replaceState({}, document.title, '/candidates/manage-resume');
+                    }
+                    if (notificationType === 'faild') {
+                        // Display the success notification
+                        showSuccessNotification('plzz add your skill');
+                        history.replaceState({}, document.title, '/candidates/manage-resume');
+                    }
+                    const skillRegex = /^[A-Za-z\s]+$/;
+
+                    skillForm.addEventListener('submit', async (e) => {
+
+                        const skillTitle = skillInput.value.trim();
+                        if (skillTitle === "") {
+                            e.preventDefault()
+                            alert('plzz add skill')
+                            return;
+                        }
+
+                        if (!skillRegex.test(skillTitle)) {
+                            alert("skill name should only contain letters.");
+                            e.preventDefault();
+                            return;
+                        }
+                        skillBtn.textContent = 'Saving...';
+                        skillBtn.disabled = true;
+                        try {
+                            if (response.ok) {
+                                window.location.href = '/candidates/manage-resume?notification=201';
+                            } else {
+                                throw new Error('An error occurred during form submission.');
+                            }
+                        } catch (error) {
+                            showErrorNotification('There was an error adding your skill.');
+                        } finally {
+                            skillBtn.textContent = 'Save';
+                            skillBtn.disabled = false;
+                        }
+                    });
+                });
+
+
+
+
+                // //employet exp  store request
+
+                document.addEventListener('DOMContentLoaded', () => {
+                    const empForm = document.getElementById('emp_store_form');
+                    const empinput_de = document.querySelector('[name="designation"]');
+                    const empinput_org = document.querySelector('[name="organization"]');
+                    const empinput_st_dat = document.querySelector('[name="working_start_date"]');
+                    const empinput_en_dat = document.querySelector('[name="working_end_date"]');
+                    const empinput_detail = document.querySelector('[name="emp_job_detail"]');
+                    const emBtn = document.getElementById('emp_btn');
+
+
+                    const notificationType = '<%=notificationType%>'
+                    if (notificationType === 'added') {
+                        // Display the success notification
+                        showSuccessNotification('Your experience has been added successfully');
+                        history.replaceState({}, document.title, '/candidates/manage-resume');
+                    }
+
+                    const inputRegex = /^[A-Za-z]+$/;
+                    empForm.addEventListener('submit', async (e) => {
+                        const _designation = empinput_de.value.trim();
+                        const _organization = empinput_org.value.trim();
+                        const _jobDetail = empinput_detail.value.trim();
+
+                        if (!inputRegex.test(_designation) || !inputRegex.test(_organization) || !inputRegex.test(_jobDetail)) {
+                            alert("this field only contains letters");
+                            e.preventDefault();
+                            return;
+                        }
+                        if (_designation === "") {
+                            alert("Please fill out the designation");
+                            e.preventDefault();
+                            return;
+                        }
+
+                        if (_organization === "") {
+                            alert("Please fill out organization field.");
+                            e.preventDefault();
+                            return;
+                        }
+                        const start_dt = empinput_st_dat.value.trim();
+                        const end_dt = empinput_en_dat.value.trim();
+                        if (start_dt === "") {
+                            alert("Please fill out starting date field.");
+                            e.preventDefault();
+                            return;
+                        }
+                        if (end_dt === "") {
+                            alert("Please fill out ending date field.");
+                            e.preventDefault();
+                            return;
+                        }
+                        if (_jobDetail === "") {
+                            alert("Please fill out detail field.");
+                            e.preventDefault();
+                            return;
+                        }
+                        const currentYear = new Date().getFullYear();
+                        const startYear = new Date(start_dt).getFullYear();
+                        const endYear = new Date(end_dt).getFullYear();
+
+                        const currentMonth = new Date().getMonth()
+                        const startMonth = new Date(start_dt).getMonth()
+                        const endMonth = new Date(end_dt).getMonth()
+
+                        const currentDay = new Date().getDay()
+                        const startDay = new Date(start_dt).getDay()
+                        const endDay = new Date(end_dt).getDay()
+
+                        if (startYear > endYear) {
+                            alert("Starting year cannot be greater than ending year.");
+                            e.preventDefault();
+                            return;
+                        }
+
+                        if (startYear > currentYear || endYear > currentYear) {
+                            alert("Please select a year not greater than the current year.");
+                            e.preventDefault();
+                            return;
+                        }
+                        if (startYear == currentYear & endYear == currentYear || startYear == endYear) {
+                            if (startMonth > endMonth) {
+                                alert("date selection invalid");
+                                e.preventDefault();
+                                return;
+                            }
+                            if (startMonth==endMonth) {
+                                if (startDay > endDay) {
+                                    alert("date selection invalid");
+                                    e.preventDefault();
+                                    return;
+                                }
+                            }
+                        }
+                        if (endYear == currentYear || endYear == startYear) {
+                            if (endMonth > currentMonth) {
+                                alert("date selection invalid");
+                                e.preventDefault();
+                                return;
+                            }
+                            if (endMonth===currentMonth||endMonth===startMonth) {
+                                if (endDay > currentDay) {
+                                    alert("date selection invalidww");
+                                    e.preventDefault();
+                                    return;
+                                }
+
+                            }
+                        }
+                        else {
+                            emBtn.textContent = 'Saving...';
+                            emBtn.disabled = true;
+                        }
+                        try {
+
+
+                            if (response.ok) {
+                                window.location.href = '/candidates/manage-resume?notification=added';
+                            } else {
+                                throw new Error('An error occurred during form submission.');
+                            }
+                        } catch (error) {
+                            showErrorNotification('There was an error uploading your resume.');
+                        } finally {
+                            emBtn.textContent = 'Save';
+                            emBtn.disabled = false;
+                        }
+                    });
+                });
+
+                // education............model
+                document.addEventListener('DOMContentLoaded', () => {
+                    const eduForm = document.getElementById('edu_store_form');
+                    const eduinput_deg = document.querySelector('[name="edu_degree"]');
+                    const eduinput_year = document.querySelector('[name="edu_pass_year"]');
+                    const eduinput_institute = document.querySelector('[name="edu_institute_name"]');
+
+                    const eduBtn = document.getElementById('edu_store_btn');
+
+
+                    const notificationType = '<%=notificationType%>'
+                    if (notificationType === 'added') {
+                        // Display the success notification
+                        showSuccessNotification('Your experience has been added successfully');
+                        history.replaceState({}, document.title, '/candidates/manage-resume');
+                    }
+
+                    const inputRegex = /^[A-Za-z]+$/;
+                    eduForm.addEventListener('submit', async (e) => {
+                        const _degree = eduinput_deg.value.trim();
+                        const pass_year = eduinput_year.value.trim();
+                        const institute_name = eduinput_institute.value.trim();
+
+                        if (_degree === "") {
+                            alert("Please fill out the degree");
+                            e.preventDefault();
+                            return;
+                        }
+
+                        if (pass_year === "") {
+                            alert("Please fill out year field.");
+                            e.preventDefault();
+                            return;
+                        }
+
+                        if (institute_name === "") {
+                            alert("Please fill out institute field.");
+                            e.preventDefault();
+                            return;
+                        }
+                        const integerRegex = /^[0-9]+$/;
+                        if (!integerRegex.test(pass_year)) {
+                            alert("This field only contains integers (0-9).");
+                            e.preventDefault();
+                            return;
+                        }
+
+                        if (!inputRegex.test(_degree) || !inputRegex.test(institute_name)) {
+                            alert("this field only contains letters");
+                            e.preventDefault();
+                            return;
+                        }
+                        else {
+                            eduBtn.textContent = 'Saving...';
+                            eduBtn.disabled = true;
+                        }
+                        try {
+
+
+                            if (response.ok) {
+                                window.location.href = '/candidates/manage-resume?notification=added-edu';
+                            } else {
+                                throw new Error('An error occurred during form submission.');
+                            }
+                        } catch (error) {
+                            showErrorNotification('There was an error uploading your resume.');
+                        } finally {
+                            eduBtn.textContent = 'Save';
+                            eduBtn.disabled = false;
+                        }
+                    });
+                });
+
+                //education exp  store request
+
+            </script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+            <%- include('../partials/footer') %>

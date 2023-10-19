@@ -1,0 +1,121 @@
+<%- include('partials/headerlinks.ejs')%>
+<%- include('partials/header.ejs')%>
+    <style>
+        .text-muted {
+            --bs-text-opacity: 1;
+            color: #6c757d!important;
+            margin-right: 12px;
+            margin-left: 15px;
+        }
+        .twm-jobs-grid-style1 .twm-right-content .twm-jobs-amount {
+            font-weight: 500;
+            color: #17171d;
+            margin: 2px 0px 5px 0px;
+        }
+        .twm-jobs-grid-style1 .twm-mid-content {
+            padding-top: 35px;
+        }
+        p {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+        .twm-job-address {
+            font-size: 14px !important;
+        }
+        .twm-job-title h6 {
+            font-weight: 800;
+        }
+    </style>
+    <!-- CONTENT START -->
+    <div class="page-content">
+
+        <!-- INNER PAGE BANNER -->
+        <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url(../../app_assets/images/banner/1.jpg);">
+            <div class="overlay-main site-bg-white opacity-01"></div>
+            <div class="container">
+                <div class="wt-bnr-inr-entry">
+                    <div class="banner-title-outer">
+                        <div class="banner-title-name">
+                            <h2 class="wt-title"> Category Related Jobs</h2>
+                        </div>
+                    </div>
+                    <!-- BREADCRUMB ROW -->
+
+                    <div>
+                        <ul class="wt-breadcrumb breadcrumb-style-2">
+                            <li><a href="{{ url('/') }}">Home</a></li>
+                            <li>Jobs Grid</li>
+                        </ul>
+                    </div>
+
+                    <!-- BREADCRUMB ROW END -->
+                </div>
+            </div>
+        </div>
+        <!-- INNER PAGE BANNER END -->
+
+        <!-- OUR BLOG START -->
+        <div class="section-full p-b30 site-bg-white mt-4">
+            <div class="container">
+                <div class="row">
+                    <div class="twm-jobs-grid-wrap">
+                        <div class="row">
+                            <%for(const jobs of  category_jobs){%>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="twm-jobs-grid-style1  m-b30">
+                                        <div class="twm-media">
+                                          
+                                            <img style="height: 100%; width: 100%; border-radius: 10%;" src="/db_assets/p-images/<%=jobs.comp_logo%>" alt="Company Logo">
+                                           
+                                        </div>
+                                        <span class="twm-job-post-duration"><%=jobs.daysAgo%> Days Ago </span>
+                                          <%
+                                            let color=''
+                                            
+                                            
+                                          
+                                            if(jobs.job_type==="Remote")
+                                            {
+                                                color='red'
+                                            }
+                                            if(jobs.job_type==="Freelance")
+                                            {
+                                                color='red'
+                                            }
+                                            if(jobs.job_type==="Part Time")
+                                            {
+                                                color='blue'
+                                            }
+                                            if(jobs.job_type==="Full Time")
+                                            {
+                                                color='green'
+                                            }
+                                          
+                                          %>
+                                        <div class="twm-jobs-category green"><span class="twm-bg"style='background:<%=color%>'><%=jobs.job_type %></span></div>
+                                        <div class="twm-mid-content">
+                                            <a href="/job-detail?id=<%=jobs._id%>" class="twm-job-title">
+                                                <h6><%=jobs.job_title%></h6>
+                                            </a>
+                                            <p class="twm-job-address"><%=jobs.full_address%></p>
+                                            <span>Req Experience:</span>
+                                            <p class="twm-job-address"><%=jobs.req_experience%></p>
+                                        </div>
+                                        <div class="twm-right-content">
+                                            <div class="twm-jobs-amount"><%=jobs.min_salary%> - <%=jobs.max_salary%> <span>/ Month</span></div>
+                                            <a href="/job-detail?id=<%=jobs._id%>" class="twm-jobs-browse site-text-primary">Browse Job</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <%}%>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <%- include('partials/footer.ejs') %>
+    <%- include('partials/footer_script.ejs') %>

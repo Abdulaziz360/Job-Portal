@@ -1,0 +1,157 @@
+<%- include('../partials/main_header') %>
+<%- include('../partials/navebar_header') %>
+<%- include('../partials/side_bar') %>
+    <style>
+        li {
+            font-weight: 600;
+            list-style: none;
+            color: red;
+        }
+    </style>
+    <!--**********************************
+            Content body start
+        ***********************************-->
+    <div class="content-body">
+        <div class="container-fluid">
+            <!-- row -->
+            <div class="row">
+                <div class="d-flex align-items-center mb-3">
+                    <h4 class="fs-20 font-w600 mb-0 me-auto">Profile Setting</h4>
+                </div>
+
+                <div class="col-xl-3 col-lg-4">
+                    <div class="clearfix">
+                        <div class="card card-bx author-profile m-b30">
+                            <div class="card-body">
+                                <div class="p-5">
+                                    <div class="author-profile">
+                                        <div class="author-media">
+                                            <%if(user.profile_photo){%>
+                                                <img src="/db_assets/p-images/<%=user.profile_photo%>">
+                                            <%}%>
+                                            <%if(!user.profile_photo){%>
+                                                <img src="/db_assets/images/user.jpg" alt="">
+                                            
+                                            <%}%>
+
+                                        </div>
+                                        <div class="author-info mb-2">
+                                            <h6 class="title"><%=user.fname%></h6>
+                                            <span>Employer (Manager)</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="info-list">
+                                    <ul>
+                                        @php
+                                                $companies = DB::table('companies')->where([['emp_id', '=', Auth::user()->id]])->count();
+                                            @endphp
+                                        <li><a href="{{ route('companies_list') }}">No Of Companies</a><span>{{ $companies }}</span></li>
+                                        @php
+                                            $jobs = DB::table('jobs')->where([['emp_id', '=', Auth::user()->id]])->count();
+                                        @endphp
+                                        <li><a href="{{ url('/employer/jobs-list') }}">No Of Jobs</a><span>{{$jobs}}</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card  m-b30">
+                            <div class="card-body">
+                                <h3>Update Password</h3>
+                                <form class="profile-form" method="POST" action="{{ route('emp_password_update') }}">
+                                    @csrf
+                                        <div class="row">
+                                            <div class="col-sm-12 col-12 m-b30">
+                                                <label class="form-label">Old Password</label>
+                                                <input type="password" class="form-control @error('old_password') is-invalid @enderror" name="old_password">
+                                                <x-input-error :messages="$errors->get('old_password')" class="mt-1" />
+                                            </div>
+                                            <div class="col-sm-12 col-12 m-b30">
+                                                <label class="form-label">New Password</label>
+                                                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password">
+                                                <x-input-error :messages="$errors->get('password')" class="mt-1" />
+                                            </div>
+
+                                            <button class="btn btn-primary mb-3" style="float: right; margin-right: 20px;" type="submit">UPDATE</button>
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-9 col-lg-8">
+                    <div class="card  card-bx m-b30">
+                        <div class="card-header">
+                            <h6 class="title">Profile Setting</h6>
+                        </div>
+                        <form class="profile-form" method="POST" action="/employers/profile-setting" enctype="multipart/form-data">
+                             <!-- @csrf -->
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-6 m-b30">
+                                        <label class="form-label">First Name</label>
+                                        <input type="text" class="form-control @error('fname') is-invalid @enderror" name="fname" value="<%=user.fname%>">
+                                        <x-input-error :messages="$errors->get('fname')" class="mt-1" />
+                                        
+                                        <input type="hidden" name="_id" value="<%= user._id %>">
+                                    </div>
+                                    <div class="col-sm-6 m-b30">
+                                        <label class="form-label">Last Name</label>
+                                        <input type="text" class="form-control @error('lname') is-invalid @enderror" name="lname" value="<%=user.lname%>">
+                                        <x-input-error :messages="$errors->get('lname')" class="mt-1" />
+                                    </div>
+                                    <div class="col-sm-6 m-b30">
+                                        <label class="form-label">Profile Photo</label>
+                                        <input type="file" name="profile_photo" class="form-control @error('profile_image') is-invalid @enderror">
+                                        <x-input-error :messages="$errors->get('profile_image')" class="mt-1" />
+                                    </div>
+
+                                    <div class="col-sm-6 col-6 m-b30">
+                                        <label class="form-label">Latest Qualification(Degree)</label>
+                                        <input type="text" class="form-control @error('qualification') is-invalid @enderror" name="qualification" value="<%=user.qualification%>">
+                                        <x-input-error :messages="$errors->get('qualification')" class="mt-1" />
+                                    </div>
+
+                                    <div class="col-sm-6 m-b30">
+                                            <label class="form-label">Date Of Birth</label>
+                                            <input class="form-control @error('dob') is-invalid @enderror" type="date" name="dob" value="<%=user.dob%>">
+                                           <x-input-error :messages="$errors->get('dob')" class="mt-1" />
+                                    </div>
+
+                                    <div class="col-sm-6 m-b30">
+                                        <label class="form-label">Zip Code</label>
+                                        <input type="text" class="form-control @error('zip_code') is-invalid @enderror" name="zip_code" value="<%=user.zip_code%>">
+                                        <x-input-error :messages="$errors->get('zip_code')" class="mt-1" />
+                                    </div>
+
+                                    <div class="col-sm-12 col-12 m-b30">
+                                        <label class="form-label">Full Address</label>
+                                        <input type="text" class="form-control @error('full_address') is-invalid @enderror" name="full_address" value="<%=user.full_address%>">
+                                        <x-input-error :messages="$errors->get('full_address')" class="mt-1" />
+                                    </div>
+
+                                    <div class="col-lg-12 col-sm-12 m-b30">
+                                        <label class="form-label">Short Bio</label>
+                                        <textarea type="text" style="height: 120px;" class="form-control @error('introduction') is-invalid @enderror" name="introduction">
+                                            <%=user.introduction%>
+                                        </textarea>
+                                        <x-input-error :messages="$errors->get('introduction')" class="mt-1" />
+                                    </div>
+                                </div>
+                            </div>
+                                <button class="btn btn-primary mb-3" style="float: right; margin-right: 20px;" type="submit">UPDATE</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--**********************************
+        Content body end
+    ***********************************-->
+    <%- include('../partials/footer') %>  
+
+

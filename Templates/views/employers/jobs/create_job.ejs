@@ -1,0 +1,212 @@
+<%- include('../partials/main_header') %>
+<%- include('../partials/navebar_header') %>
+<%- include('../partials/side_bar') %>
+    <style>
+        .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-blurred {
+            min-height: 12.375rem;
+            background: #F8F8F8;
+            height: 400px !important;
+        }
+        li {
+            font-weight: 600;
+            list-style: none;
+            color: red;
+        }
+    </style>
+    <div class="content-body" style="min-height: 788px;">
+        <!-- row -->
+        <div class="container-fluid">
+            <div class="d-flex align-items-center mb-4">
+                <h4 class="fs-20 font-w600 mb-0 me-auto">New Job</h4>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- @if (session('error'))
+                                <div class="alert alert-info alert-alt solid fade show" role="alert">
+                                    {{ session('error') }}
+                                </div>
+                            @endif -->
+
+                            <form method="POST" action="" enctype="multipart/form-data">
+                                <!-- @csrf -->
+                                <div class="row">
+                                    <div class="col-xl-6  col-md-6 mb-2">
+                                        <label class="form-label font-w600">Title<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input type="text" class="form-control solid @error('job_title') is-invalid @enderror" name="job_title" placeholder="Job Title">
+                                       <span style="color: red;"><%=message%></span>
+                                    </div>
+
+                                    <div class="col-xl-6  col-md-6 mb-2">
+                                        <label class="form-label font-w600">Feature Image:<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input type="file" class="form-control solid @error('job_image') is-invalid @enderror" name="job_image">
+                                        <x-input-error :messages="$errors->get('job_image')" class="mt-1" />
+                                    </div>
+
+
+                                    <div class="col-lg-6 col-sm-6 mb-3">
+                                        <label class="form-label">Category</label>
+                                        <select name="category" class="selectpicker nice-select default-select form-control wide mh-auto @error('category_id') is-invalid @enderror">
+                                            <option disabled="" selected>Select Job Category</option>
+                                          <%if(category && category[0])
+                                          {%>  
+                                             <%for(let i=0;i< category.length;i++){%>
+                                             <option value="<%=category[i].category_name%>"><%=category[i].category_name %></option>
+                                            <%}%>
+                                          <%}%> 
+                                          <%if(!category[0]){%>
+                                            <option style="color: red;">plzz add some categories</option>
+                                            <%}%>
+                                            <!-- @endforeach -->
+                                        </select>
+                                        <x-input-error :messages="$errors->get('category_id')" />
+                                    </div>
+
+
+                                    <div class="col-lg-6 col-sm-6 mb-3">
+                                        <label class="form-label">Company</label>
+                                        <select name="company" class="selectpicker nice-select default-select form-control wide mh-auto @error('comp_id') is-invalid @enderror">
+                                            <option disabled="" selected>Select Job Company</option>
+                                         <%if( company && company[0]){%>   
+                                            <%for(let i=0;i< company.length;i++){%>
+                                                <option value="<%=company[i].comp_name%>"><%=company[i].comp_name%></option>
+                                            <%}%>
+                                         <%}%> 
+                                         <%if(!company[0]){%>
+                                            <option style="color: red;">plzz add some companies</option>
+                                            <%}%>  
+                                        </select>
+                                        <x-input-error :messages="$errors->get('comp_id')" />
+                                    </div>
+
+
+
+                                    <div class="col-lg-6 col-sm-6 mb-3">
+                                        <label class="form-label">Gender</label>
+                                        <select name="gender" class="selectpicker nice-select default-select form-control wide mh-auto @error('gender') is-invalid @enderror">
+                                            <option disabled="" selected>Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Male & Female">Male & Female</option>
+                                        </select>
+                                        <x-input-error :messages="$errors->get('gender')" />
+                                    </div>
+
+
+
+                                    <div class="col-lg-6 col-sm-6 mb-3">
+                                        <label class="form-label">Job Type</label>
+                                        <select name="job_type" class="selectpicker nice-select default-select form-control wide mh-auto @error('job_type') is-invalid @enderror">
+                                            <option disabled="" selected>Select Job Type</option>
+                                            <option value="Full Time">Full Time</option>
+                                            <option value="Part Time">Part Time</option>
+                                            <option value="Remote">Remote</option>
+                                            <option value="Freelance">Freelance</option>
+                                        </select>
+                                        <x-input-error :messages="$errors->get('job_type')" />
+                                    </div>
+
+                                    <div class="col-xl-4  col-md-4 col-sm- 12 mb-2">
+                                        <label class="form-label font-w600">Min Salary<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input type="number" class="form-control solid @error('min_salary') is-invalid @enderror"  name="min_salary" placeholder="Min Salary">
+                                        <x-input-error :messages="$errors->get('min_salary')" class="mt-1" />
+                                    </div>
+
+
+                                    <div class="col-xl-4  col-md-4 col-sm- 12 mb-2">
+                                        <label class="form-label font-w600">Max Salary<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input type="number" class="form-control solid @error('max_salary') is-invalid @enderror" name="max_salary" placeholder="Min Salary">
+                                        <x-input-error :messages="$errors->get('max_salary')" class="mt-1" />
+                                    </div>
+
+                                    <div class="col-xl-4  col-md-4 col-sm- 12 mb-2">
+                                        <label class="form-label font-w600">Vacancies<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input type="number" class="form-control solid @error('vacancies') is-invalid @enderror" name="vacancies" placeholder="Vacancies">
+                                        <x-input-error :messages="$errors->get('vacancies')" class="mt-1" />
+                                    </div>
+
+                                    <div class="col-xl-4  col-md-4 col-sm- 12 mb-2">
+                                        <label class="form-label font-w600">Required Experience<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input type="text" class="form-control solid @error('req_experience') is-invalid @enderror"  name="req_experience" placeholder="Required Experience">
+                                        <x-input-error :messages="$errors->get('req_experience')" class="mt-1" />
+                                    </div>
+
+
+                                    <div class="col-xl-4  col-md-4 col-sm- 12 mb-2">
+                                        <label class="form-label font-w600">Required Qualification<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input type="text" class="form-control solid @error('req_qualification') is-invalid @enderror" name="req_qualification" placeholder="Required Qualification">
+                                        <x-input-error :messages="$errors->get('req_qualification')" class="mt-1" />
+                                    </div>
+
+                                    <div class="col-xl-4  col-md-4 col-sm- 12 mb-2">
+                                        <label class="form-label font-w600">State Name<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input type="text" class="form-control solid @error('state') is-invalid @enderror" name="state" placeholder="State Name">
+                                        <x-input-error :messages="$errors->get('state')" class="mt-1" />
+                                    </div>
+
+                                    <div class="col-xl-4  col-md-4 col-sm- 12 mb-2">
+                                        <label class="form-label font-w600">City Name<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input type="text" class="form-control solid @error('city') is-invalid @enderror" name="city" placeholder="City Name">
+                                        <x-input-error :messages="$errors->get('city')" class="mt-1" />
+                                    </div>
+
+
+                                    <div class="col-xl-4  col-md-4 col-sm- 12 mb-2">
+                                        <label class="form-label font-w600">Full Address:<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input type="text" class="form-control solid @error('full_address') is-invalid @enderror" name="full_address" placeholder="Full Address" aria-label="name">
+                                        <x-input-error :messages="$errors->get('full_address')" class="mt-1" />
+                                    </div>
+
+
+                                    <div class="col-xl-4  col-md-4 col-sm- 12 mb-2">
+                                        <label class="form-label font-w600">Closing Date:<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input type="date" class="form-control solid @error('job_close_date') is-invalid @enderror" name="job_close_date" placeholder="Closing Date">
+                                        <x-input-error :messages="$errors->get('job_close_date')" class="mt-1" />
+                                    </div>
+
+
+                                    <div class="col-xl-12  col-md-12 mb-2 mt-2">
+                                        <label class="form-label font-w600">Job Tags:<span class="text-danger" style="margin-left: 5px;">Each skill separate with commas(,).</span></label>
+                                        <input type="text" class="form-control solid @error('job_tags') is-invalid @enderror" name="job_tags" placeholder="Job Tags">
+                                        <x-input-error :messages="$errors->get('job_tags')" class="mt-1" />
+                                    </div>
+
+                                    <div class="col-xl-12 mb-2">
+                                        <label class="form-label font-w600">Short Description :<span class="text-danger scale5 ms-2">*</span></label>
+                                        <textarea class="form-control solid @error('short_description') is-invalid @enderror" style="height: 120px;" name="short_description"></textarea>
+                                        <x-input-error :messages="$errors->get('short_description')" class="mt-1" />
+                                    </div>
+
+                                    <div class="col-xl-12 mb-4">
+                                        <label class="form-label font-w600">Description & Requirements:<span class="text-danger scale5 ms-2">*</span></label>
+                                        <textarea class="form-control solid @error('description') is-invalid @enderror" style="height: 330px;" id="div_editor1" name="description"></textarea>
+                                        <x-input-error :messages="$errors->get('description')" class="mt-1" />
+                                    </div>
+
+
+                                    <div class="card-footer text-end">
+                                        <div>
+                                            <button type="submit" class="btn btn-secondary">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- @endsection
+@section('script') -->
+<script type="text/javascript" src="/db_assets/richtexteditor/rte.js"></script>
+<script type="text/javascript" src="/db_assets/richtexteditor/plugins/all_plugins.js"></script>
+<script>
+    var editor1 = new RichTextEditor("#div_editor1");
+</script>
+ <%- include('../partials/footer') %>  
+<!-- @endsection -->

@@ -1,0 +1,422 @@
+<!-- @extends('app_main')
+@section('content') -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" type="image/x-icon" href="/app_assets/images/favicon.ico" />
+    <title>Jobick Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_token" content="csrf_token">
+    <link rel="stylesheet" type="text/css" href="/app_assets/css/bootstrap.min.css"><!-- BOOTSTRAP STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="/app_assets/css/feather.css"><!-- FEATHER ICON SHEET -->
+    <link rel="stylesheet" type="text/css" href="/app_assets/css/owl.carousel.min.css"><!-- OWL CAROUSEL STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="/app_assets/css/magnific-popup.min.css"><!-- MAGNIFIC POPUP STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="/app_assets/css/lc_lightbox.css"><!-- Lc light box popup -->
+    <link rel="stylesheet" type="text/css" href="/app_assets/css/bootstrap-select.min.css"><!-- BOOTSTRAP SLECT BOX STYLE SHEET  -->
+    <link rel="stylesheet" type="text/css" href="/app_assets/css/dataTables.bootstrap5.min.css"><!-- DATA table STYLE SHEET  -->
+    <link rel="stylesheet" type="text/css" href="/app_assets/css/select.bootstrap5.min.css"><!-- DASHBOARD select bootstrap  STYLE SHEET  -->
+    <link rel="stylesheet" type="text/css" href="/app_assets/css/dropzone.css"><!-- DROPZONE STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="/app_assets/css/scrollbar.css"><!-- CUSTOM SCROLL BAR STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="/app_assets/css/datepicker.css"><!-- DATEPICKER STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="/app_assets/css/flaticon.css"> <!-- Flaticon -->
+    <link rel="stylesheet" type="text/css" href="/app_assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" type="text/css" href="/app_assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/app_assets/css/style.css.map">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+
+    <style>
+        /* Custom CSS class for Toastr notifications */
+          /* Custom CSS class for Toastr notifications */
+          .success-custom-toast {
+            width: 500px !important;
+            height: auto !important;
+            background-color: green !important;
+            margin-bottom: 20px !important;
+            font-size: 18px !important;
+
+        }
+
+        .error-custom-toast {
+            width: 500px !important;
+            height: auto !important;
+            background-color: red !important;
+            margin-bottom: 20px !important;
+            font-size: 18px !important;
+
+        }
+        .site-bg-primary {
+            background-color:white !important;
+        }
+        .job-categories-home-5 {
+            padding: 25px;
+            background-color: #fff !important;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            text-align: center;
+            transition: 0.5s all ease;
+        }
+        .twm-jobs-grid-h5-section {
+            background-color: #fff !important;
+            background-size: contain;
+            border-radius: 40px;
+            padding: 70px 100px;
+        }
+        .job-categories-block-2 .twm-media {
+        width: 130px;
+        height: 130px;
+        line-height: 0;
+        display: flex;
+        position: relative;
+        z-index: 1;
+        align-items: center;
+        justify-content: center;
+        margin: 0px auto 20px;
+    }
+    .twm-jobs-grid-style1 .twm-right-content .twm-jobs-amount {
+        font-weight: 500;
+        color: #17171d;
+        margin: 2px 0px 5px 0px;
+    }
+    .twm-jobs-grid-style1 .twm-mid-content {
+        padding-top: 35px;
+    }
+    p {
+        margin-top: 0;
+        margin-bottom: 8px;
+    }
+    .twm-job-address {
+        font-size: 14px !important;
+    }
+    .twm-job-title h6 {
+        font-weight: 800;
+    }
+
+    .job-categories-home-5 .twm-media {
+        width: 110px !important;
+        height: 110px !important;
+    }
+   </style> 
+   <body> 
+    
+<!-- HEADER START -->
+<header  class="site-header header-style-3 mobile-sider-drawer-menu">
+
+    <div class="sticky-header main-bar-wraper  navbar-expand-lg">
+        <div class="main-bar">
+
+            <div class="container-fluid clearfix">
+
+                <div class="logo-header">
+                    <div class="logo-header-inner logo-header-one">
+                        <a href="{{ url('/') }}">
+                             <img src="app_assets/images/logo-dark.png" alt="">
+                        </a>
+                    </div>
+                </div>
+
+                <!-- NAV Toggle Button -->
+                <button id="mobile-side-drawer" data-target=".header-nav" data-toggle="collapse" type="button" class="navbar-toggler collapsed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar icon-bar-first"></span>
+                    <span class="icon-bar icon-bar-two"></span>
+                    <span class="icon-bar icon-bar-three"></span>
+                </button>
+
+                <!-- MAIN Vav -->
+                <div class="nav-animation header-nav navbar-collapse collapse d-flex justify-content-center">
+
+                    <ul class=" nav navbar-nav">
+                        <li class="has-child"><a href="/">Home</a></li>
+                        <li class="has-child"><a href="/jobs">Jobs</a></li>
+                        <li class="has-child"><a href="/employers">Employers</a></li>
+                        <li class="has-child"><a href="/candidate-list">Candidates</a></li>
+
+                        <li class="has-child"><a href="javascript:;">Pages</a>
+                            <ul class="sub-menu">
+                                <li><a href="{{ url('/about-us') }}">About Us</a></li>
+                                <li><a href="{{ url('/faq') }}">FAQ's</a></li>
+                                <li><a href="{{ url('/contact-us') }}">Contact Us</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <!-- Header Right Section-->
+                <div class="extra-nav header-2-nav">
+                    <div class="extra-cell">
+                        <div class="header-nav-btn-section">
+                            <div class="twm-nav-btn-left">
+                                <!-- @if(Auth::user()) -->
+                                    <!-- @if(Auth::user()->role_as == 1) -->
+                                    <!-- <a target="_blank" class="twm-nav-sign-up" href="{{ url('/employer/dashboard') }}">
+                                        <i class="feather-log-in"></i> Dashboard
+                                    </a>
+                                      @elseif(Auth::user()->role_as == 2) -->
+                                        <!-- <a target="_blank" class="twm-nav-sign-up" href="{{ url('/candidate/dashboard') }}"> -->
+                                            <!-- <i class="feather-log-in"></i> Dashboard -->
+                                        <!-- </a> --> 
+                                    <!-- @endif -->
+                                 <!-- @else -->
+                                    <a target="_blank" class="twm-nav-sign-up" href="/login">
+                                        <i class="feather-log-in"></i> Login/Signup
+                                    </a>
+                                <!-- @endif -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <!-- SITE Search -->
+        <div id="search">
+            <span class="close"></span>
+            <form role="search" id="searchform" action="/search" method="get" class="radius-xl">
+                <input class="form-control" value="" name="q" type="search" placeholder="Type to search"/>
+                <span class="input-group-append">
+                            <button type="button" class="search-btn">
+                                <i class="fa fa-paper-plane"></i>
+                            </button>
+                        </span>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+</header>
+    <div class="page-content" style="transform: none;">
+
+        <!-- INNER PAGE BANNER -->
+        <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url(../../app_assets/images/banner/1.jpg);">
+            <div class="overlay-main site-bg-white opacity-01"></div>
+            <div class="container">
+                <div class="wt-bnr-inr-entry">
+                    <div class="banner-title-outer">
+                        <div class="banner-title-name">
+                            <h2 class="wt-title">Candidate Profile</h2>
+                        </div>
+                    </div>
+
+                    <div>
+                        <ul class="wt-breadcrumb breadcrumb-style-2">
+                            <li><a href="/">Home</a></li>
+                            <li>Candidate Profile</li>
+                        </ul>
+                    </div>
+
+                    <!-- BREADCRUMB ROW END -->
+                </div>
+            </div>
+        </div>
+        <!-- INNER PAGE BANNER END -->
+
+
+
+        <!-- OUR BLOG START -->
+        <div class="section-full  p-t120 p-b90 bg-white" style="transform: none;">
+            <div class="container" style="transform: none;">
+
+                <!-- BLOG SECTION START -->
+                <div class="section-content" style="transform: none;">
+                    <div class="row d-flex justify-content-center" style="transform: none;">
+
+                        <div class="col-lg-8 col-md-12">
+                            <!-- Candidate detail START -->
+                            <div class="cabdidate-de-info">
+                                <div class="twm-candi-self-wrap overlay-wraper" style="background-image:url(../../app_assets/images/candidates/candidate-bg.jpg);">
+                                    <div class="overlay-main site-bg-primary opacity-01"></div>
+                                    <div class="twm-candi-self-info">
+                                        <div class="twm-candi-self-top">
+                                            <div class="twm-media">
+                                                <img src="/db_assets/p-images/<%=candidate.profile_photo%>" alt="#">
+                                            </div>
+                                            <!-- @php $resume = \App\Helpers\AppHelper::instance()->getCaTResume($candidate->id); @endphp -->
+
+                                            <div class="twm-mid-content">
+                                                <h4 class="twm-job-title"><%=candidate.fname%> <%=candidate.lname%> </h4>
+                                                <%if(candidate.resumeProfile && candidate.resumeProfile.resume_title){%>
+                                                <p><%=candidate.resumeProfile.resume_title%></p>
+                                                <%}%>
+                                                <!-- <p><%=candidate.resume%></p> -->
+                                                <p class="twm-candidate-address"><i class="feather-map-pin"></i><%=candidate.full_address%></p>
+
+                                            </div>
+                                        </div>
+                                        <div class="twm-candi-self-bottom">
+                                            <%if(candidate.resumeProfile && candidate.resumeProfile.resume_title){%>
+                                            <a target="_blank" href="/db_assets/pdf_files/<%=candidate.resumeProfile.resume%>"class="site-button secondry">Download CV</a>
+                                            <%}%>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="twm-s-title">About Me</h4>
+                                <p><%=candidate.introduction%></p>
+                                <h4 class="twm-s-title">Skills</h4>
+
+                                <div class="tw-sidebar-tags-wrap">
+                                    <div class="tagcloud">
+                                        <!-- @php $skills = \App\Helpers\AppHelper::instance()->getCaskills($candidate->id); @endphp -->
+                                        <% if(candidate.skillProfile && candidate.skillProfile.skill_name){%>
+                                            <% for (let i = 0; i < candidate.skillProfile.skill_name.length; i++) { %>  
+                                                <a href="javascript:void(0)"><%= candidate.skillProfile.skill_name[i] %></a>     
+                                            <% } %>
+                                        <%}%>
+
+                                    </div>
+                                </div>
+
+                                <h4 class="twm-s-title">Work Experience</h4>
+                                <div class="twm-timing-list-wrap">
+                                <% if(candidate.empExProfile){%>
+                                 <%for(let i=0;i< candidate.empExProfile.designation.length;i++)
+                                 {%>
+                                    <div class="twm-timing-list">
+                                        <div class="twm-time-list-date">
+                                            <%=candidate.empExProfile.working_start_date[i].toLocaleDateString()%> 
+                                            to 
+                                            <%=candidate.empExProfile.working_end_date[i].toLocaleDateString()%> 
+                                        </div>
+                                        <div class="twm-time-list-title">
+                                             <%=candidate.empExProfile.organization[i]%>.
+                                        </div>
+                                        <div class="twm-time-list-position">
+                                            <%=candidate.empExProfile.designation[i]%>.
+                                        </div>
+                                        <div class="twm-time-list-discription">
+                                            <p> <%=candidate.empExProfile.emp_job_detail[i]%>.</p>
+                                        </div>
+                                    </div>
+                                  <%}%>  
+                                <%}%>
+                                </div>
+
+                                <h4 class="twm-s-title">Education &amp; Training</h4>
+                                <div class="twm-timing-list-wrap">
+                                <%if(candidate.educationProfile){ %>
+                                    <!-- <p> <%=candidate.educationProfile.edu_pass_year%> </p> -->
+
+                                    <% for(let i=0;i< candidate.educationProfile.edu_institute_name.length;i++ ){%>
+                                    <div class="twm-timing-list">
+                                            <div class="twm-time-list-date">
+                                                <%=candidate.educationProfile.edu_pass_year[i]%>
+                                            </div>
+                                            <div class="twm-time-list-title">
+                                                <%=candidate.educationProfile.edu_degree[i]%>
+                                            </div>
+                                            <div class="twm-time-list-position">
+                                                <%=candidate.educationProfile.edu_institute_name[i]%>
+                                            </div>
+                                    </div>
+                                    <%}%>
+
+                                <%}%>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-4 col-md-12 rightSidebar" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+                            <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none;"><div class="side-bar-2">
+                                    <div class="twm-s-info-wrap mb-5">
+                                        <h4 class="section-head-small mb-4">Profile Info</h4>
+                                        <div class="twm-s-info">
+                                            <ul>
+                                                <li>
+                                                    <div class="twm-s-info-inner">
+                                                        <i class="fas fa-venus-mars"></i>
+                                                        <span class="twm-title">Gender</span>
+                                                        <div class="twm-s-info-discription"><%=candidate.gender%></div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="twm-s-info-inner">
+                                                        <i class="fas fa-mobile-alt"></i>
+                                                        <span class="twm-title">Phone</span>
+                                                        <div class="twm-s-info-discription"><%=candidate.phone%></div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="twm-s-info-inner">
+                                                        <i class="fas fa-at"></i>
+                                                        <span class="twm-title">Email</span>
+                                                        <div class="twm-s-info-discription"><%=candidate.email%></div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="twm-s-info-inner">
+                                                        <i class="fas fa-book-reader"></i>
+                                                        <span class="twm-title">Qualification</span>
+                                                        <div class="twm-s-info-discription"><%=candidate.qualification%></div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="twm-s-info-inner">
+
+                                                        <i class="fas fa-map-marker-alt"></i>
+                                                        <span class="twm-title">Address</span>
+                                                        <div class="twm-s-info-discription"><%=candidate.full_address%></div>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- OUR BLOG END -->
+
+
+    </div>
+    <script  src="/app_assets/js/jquery-3.6.0.min.js"></script><!-- JQUERY.MIN JS -->
+    <script  src="/app_assets/js/popper.min.js"></script><!-- POPPER.MIN JS -->
+    <script  src="/app_assets/js/bootstrap.min.js/"></script><!-- BOOTSTRAP.MIN JS -->
+    <script  src="/app_assets/js/magnific-popup.min.js"></script><!-- MAGNIFIC-POPUP JS -->
+    <script  src="/app_assets/js/waypoints.min.js"></script><!-- WAYPOINTS JS -->
+    <script  src="/app_assets/js/counterup.min.js"></script><!-- COUNTERUP JS -->
+    <script  src="/app_assets/js/waypoints-sticky.min.js"></script><!-- STICKY HEADER -->
+    <script  src="/app_assets/js/isotope.pkgd.min.js"></script><!-- MASONRY  -->
+    <script  src="/app_assets/js/imagesloaded.pkgd.min.js"></script><!-- MASONRY  -->
+    <script  src="/app_assets/js/theia-sticky-sidebar.js"></script><!-- STICKY SIDEBAR  -->
+    <script  src="/app_assets/js/lc_lightbox.lite.js" ></script><!-- IMAGE POPUP -->
+    <script  src="/app_assets/js/bootstrap-select.min.js"></script><!-- Form js -->
+    <script  src="/app_assets/js/dropzone.js"></script><!-- IMAGE UPLOAD  -->
+    <script  src="/app_assets/js/jquery.scrollbar.js"></script><!-- scroller -->
+    <script  src="/app_assets/js/bootstrap-datepicker.js"></script><!-- scroller -->
+    <script  src="/app_assets/js/jquery.dataTables.min.js"></script><!-- Datatable -->
+    <script  src="/app_assets/js/dataTables.bootstrap5.min.js"></script><!-- Datatable -->
+    <script  src="/app_assets/js/chart.js"></script><!-- Chart -->
+    <script  src="/app_assets/js/bootstrap-slider.min.js"></script><!-- Price range slider -->
+    <script  src="/app_assets/js/swiper-bundle.min.js"></script><!-- Swiper JS -->
+    <script  src="/app_assets/js/custom.js"></script><!-- CUSTOM FUCTIONS  -->
+    </body>
+    </html>

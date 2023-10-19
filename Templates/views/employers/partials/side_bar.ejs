@@ -1,0 +1,84 @@
+<!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="dlabnav">
+            <div class="dlabnav-scroll">
+                <div class="dropdown header-profile2 ">
+                    <a class="nav-link " href="javascript:void(0);"  role="button" data-bs-toggle="dropdown">
+                        <div class="header-info2 d-flex align-items-center">
+                            <%if(user.profile_photo){%>
+                                <img src="/db_assets/p-images/<%=user.profile_photo%>">
+                            <%}%>
+                            <%if(!user.profile_photo){%>
+                            <img src="/db_assets/images/user.jpg" alt="">
+                            <%}%>
+                             
+                            <div class="d-flex align-items-center sidebar-info">
+                                <div>
+                                    <span class="font-w400 d-block"><%=user.fname %> <%=user.lname%></span>
+                                    <span class="font-w400 d-block"> <a href="/employers/employer-dashboard">
+                                        Employer
+                                    </a> </span>   
+                                </div>
+                            </div>
+        
+                        </div>
+                    </a>
+                </div>
+                <ul class="metismenu" id="menu">
+        
+                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="fas fa-briefcase me-2"></i>
+                            <span class="nav-text">Companies</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/employers/company_create">New Company</a></li>
+                            <li><a href="/employers/companies_list">Companies List</a></li>
+                        </ul>
+                    </li>
+        
+                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="flaticon-093-waving"></i>
+                            <span class="nav-text">Jobs Categories</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/employers/job-category-create">New Category</a></li>
+                            <li><a href="/employers/category_list">Categories List</a></li>
+                        </ul>
+                    </li>
+        
+                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="flaticon-093-waving"></i>
+                            <span class="nav-text">Jobs</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/employers/job-create">New Job</a></li>
+                            <li><a href="/employers/jobs-list">Job List</a></li>
+                            <li><a href="/employers/applied-jobs">Applied Jobs</a></li>
+                            <li><a href="/employers/saved-jobs">Saved Jobs</a></li>
+                        </ul>
+                    </li>
+        
+        
+                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="flaticon-050-info"></i>
+                            <span class="nav-text">Apps</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/employers/profile">Profile View</a></li>
+                            <li><a href="/employers/profile-setting">Profile Setting</a></li>
+                        </ul>
+                    </li>
+        
+                </ul>
+        
+                <div class="copyright">
+                    <p><strong>Jobick Job Admin</strong> <%=new Date().getFullYear()%> All Rights Reserved</p>
+                    <p class="fs-12">Made <span class="heart"></span> by CodeWizard(CW).</p>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+        

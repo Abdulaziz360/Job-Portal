@@ -1,0 +1,131 @@
+<%- include('../partials/main_header') %>
+<%- include('../partials/navebar_header') %>
+<%- include('../partials/side_bar') %>
+    <!--**********************************
+            Content body start
+        ***********************************-->
+    <div class="content-body">
+        <!-- row -->
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="d-flex align-items-center mb-1">
+                    <h4 class="fs-20 font-w600 mb-0 me-auto">User Profile</h4>
+                </div>
+                <div class="col-xl-10 offset-lg-2 offset-2 m-auto p-5">
+                    <div class="card">
+                        <div class="card-header border-0 flex-wrap align-items-start">
+                            <div class="col-xl-10">
+                                <div class="user d-sm-flex d-block pe-md-5 pe-0">
+                                    <%if(employer.profile_photo != ''){%>
+                                        <img src="/db_assets/p-images/<%=employer.profile_photo%>">
+                                    <%}%>
+                                    <%if(employer.profile_photo==''){%>
+                                        <img src="/db_assets/images/user.jpg" alt="">
+                                    <%}%>
+                                    <div class="ms-sm-3 ms-0 me-md-5 md-0">
+                                        <h5 class="mb-1 font-w600"><a href="javascript:void(0);"><%=employer.fname%> <%=employer.lname%></a></h5>
+                                        <div class="listline-wrapper mb-2">
+                                            <span class="item"><i class="far fa-envelope"></i><%=employer.email%></span>
+                                            <span class="item"><i class="far fa-id-badge"></i>Employer (Manager)</span>
+                                        </div>
+                                        <p>
+                                            <%if(employer.introduction != ''){%> 
+                                                <%=employer.introduction%> 
+                                            <%}else{%>    
+                                                
+                                                introduction : '----------------'
+                                            <%}%>
+                                            
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-0">
+                            <h4 class="fs-20">Personal Information:</h4>
+                            <div class="row">
+                                <div class="col-xl-6 col-md-6">
+                                    <p class="font-w600 mb-2 d-flex"><span class="custom-label-2">Full Name : </span><span class="font-w400"><%=employer.fname%> <%=employer.lname%></span></p>
+                                    <p class="font-w600 mb-2 d-flex"><span class="custom-label-2">Current Companies : </span><span class="font-w400">
+                                          <%if(companies!=''){%>
+
+                                            <%for(let i=0;i< companies.length;i++){%>
+                                                <%=companies[i].comp_name%>,  
+
+                                            <%}%>
+                                          <%}else{%>
+                                            not provide yet!
+                                            <%}%>  
+
+                                        </span></p>
+                                    <p class="font-w600 mb-2 d-flex"><span class="custom-label-2">Address :</span> <span class="font-w400">
+                                        <%if(employer.full_address != ''){%> 
+                                            <%=employer.full_address%> 
+                                        <%}else{%>    
+                                            
+                                            full_address : '----------------'
+                                        <%}%>
+                                        </span></p>
+                                    <p class="font-w600 mb-2 d-flex"><span class="custom-label-2">DOB : </span><span class="font-w400">
+                                        <%if(employer.dob != ''){%> 
+                                            <% 
+                                            let date =new Date(employer.dob)
+                                            let options={day:'2-digit',month:'short',year:'numeric'}
+                                            let format=date.toLocaleDateString('en-Us',options).split(' ')
+                                            let DOB=`${format[1]} ${format[0]},${format[2]}`
+                                            %>
+                                            <%=DOB%>
+                                        <%}else{%>    
+                                            
+                                            DOB : '----------------'
+                                        <%}%>
+                                         
+                                        </span></p>
+                                    <p class="font-w600 mb-2 d-flex"><span class="custom-label-2">Qualification: </span><span class="font-w400">
+                                        <%if(employer.qualification != ''){%> 
+                                            <%=employer.qualification%> 
+                                        <%}else{%>    
+                                            
+                                            qualification : '----------------'
+                                        <%}%>
+                                        </span></p>
+                                </div>
+                                <div class="col-xl-6 col-md-6">
+                                    <p class="font-w600 mb-2 d-flex"><span class="custom-label-2">Email :</span> <span class="font-w400"><%=employer.email%></span></p>
+                                    <p class="font-w600 mb-2 d-flex"><span class="custom-label-2">Phone : </span><span class="font-w400"><%=employer.phone%></span></p>
+                                    <p class="font-w600 mb-2 d-flex"><span class="custom-label-2">Date Of Birth : </span><span class="font-w400">
+                                        <%if(employer.dob != ''){%> 
+                                            <% 
+                                            let date =new Date(employer.dob)
+                                            let options={day:'2-digit',month:'short',year:'numeric'}
+                                            let format=date.toLocaleDateString('en-Us',options).split(' ')
+                                            let DOB=`${format[1]} ${format[0]},${format[2]}`
+                                            %>
+                                            <%=DOB%>
+                                        <%}else{%>    
+                                            
+                                            DOB : '----------------'
+                                        <%}%>}</span></p>
+                                    <p class="font-w600 mb-2 d-flex"><span class="custom-label-2">Gender : </span><span class="font-w400"><%=employer.gender%></span></p>
+                                    <p class="font-w600 mb-2 d-flex"><span class="custom-label-2">Zip code: </span><span class="font-w400">
+                                        <%if(employer.zip_code != ''){%> 
+                                            <%=employer.zip_code%> 
+                                        <%}else{%>    
+                                            
+                                            zip_code : '----------------'
+                                        <%}%>
+                                        </span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--**********************************
+        Content body end
+    ***********************************-->
+    <%- include('../partials/footer') %>

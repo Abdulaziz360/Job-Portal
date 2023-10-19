@@ -1,0 +1,258 @@
+<%- include('partials/headerlinks.ejs')%>
+<%- include('partials/header.ejs')%>
+    <style>
+        .job-categories-block-2 .twm-media {
+            width: 130px;
+            height: 130px;
+            line-height: 0;
+            display: flex;
+            position: relative;
+            z-index: 1;
+            align-items: center;
+            justify-content: center;
+            margin: 0px auto 20px;
+        }
+        .twm-jobs-grid-style1 .twm-right-content .twm-jobs-amount {
+            font-weight: 500;
+            color: #17171d;
+            margin: 2px 0px 5px 0px;
+        }
+        .twm-jobs-grid-style1 .twm-mid-content {
+            padding-top: 35px;
+        }
+        p {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+        .twm-job-address {
+            font-size: 14px !important;
+        }
+        .twm-job-title h6 {
+            font-weight: 800;
+        }
+
+        .job-categories-home-5 .twm-media {
+            width: 110px !important;
+            height: 110px !important;
+        }
+    </style>
+    <!-- CONTENT START -->
+    <div class="page-content">
+        <div class="section-full p-t120 p-b90 site-bg-gray twm-how-it-work-area" >
+
+            <div class="container" style="margin-top: 120px;">
+
+                <!-- TITLE START-->
+                <div class="section-head center wt-small-separator-outer">
+                    <div class="wt-small-separator site-text-primary">
+                        <div>Working Process</div>
+                    </div>
+                    <h2 class="wt-title">How It Works</h2>
+
+                </div>
+                <!-- TITLE END-->
+
+                <div class="twm-how-it-work-section3">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-6 col-md-6">
+                            <div class="twm-w-process-steps3">
+                                <div class="twm-w-pro-top">
+                                    <span class="twm-large-number  text-clr-sky">01</span>
+                                    <div class="twm-media bg-clr-sky">
+                                        <span><img src="/app_assets/images/work-process/icon1.png" alt="icon1"></span>
+                                    </div>
+                                </div>
+                                <h4 class="twm-title">Register Your Account</h4>
+                                <p>You need to create an account to find the best and preferred job.</p>
+                                <a href="/register" class="twm-jobs-browse site-text-primary">Register Now</a>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-6 col-md-6">
+                            <div class="twm-w-process-steps3">
+                                <div class="twm-w-pro-top">
+                                    <span class="twm-large-number text-clr-pink">02</span>
+                                    <div class="twm-media bg-clr-pink">
+                                        <span><img src="/app_assets/images/work-process/icon2.png" alt="icon1"></span>
+                                    </div>
+                                </div>
+                                <h4 class="twm-title">Apply For Dream Job</h4>
+                                <p>You need to create an account to find the best and preferred job.</p>
+                                <a href="/jobs" class="twm-jobs-browse site-text-primary">Jobs</a>
+
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-6 col-md-6">
+                            <div class="twm-w-process-steps3">
+                                <div class="twm-w-pro-top">
+                                    <span class="twm-large-number  text-clr-green">03</span>
+                                    <div class="twm-media  bg-clr-green">
+                                        <span><img src="/app_assets/images/work-process/icon3.png" alt="icon1"></span>
+                                    </div>
+                                </div>
+                                <h4 class="twm-title">Upload Your Resume</h4>
+                                <p>You need to create an account to find the best and preferred job.</p>
+                                <a href="/login" class="twm-jobs-browse site-text-primary">Login</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+              <!-- {{--        categories section--}} -->
+        <div class="section-full p-t60 site-bg-white job-categories-home-5-wrap twm-bdr-bottom-1">
+            <div class="container">
+
+                <!-- TITLE START-->
+                <div class="section-head center wt-small-separator-outer">
+                    <div class="wt-small-separator site-text-primary">
+                        <div>Browse By Category</div>
+                    </div>
+                </div>
+                <!-- TITLE END-->
+
+            </div>
+
+        <div class="section-content twm-jobs-grid-h5-section-outer">
+            <div class="twm-jobs-grid-h5-section overlay-wraper">                  
+                <div class="overlay-main site-bg-primary opacity-09"></div>
+                <div class="swiper-container category-5-slider swiper-initialized swiper-horizontal swiper-pointer-events swiper-grid">
+                    <div class="swiper-wrapper" id="swiper-wrapper-c4222ffd6106fb315" aria-live="polite" style="width: 3018px; transition-duration: 0ms; transform: translate3d(-1257.5px, 0px, 0px);">
+                        <%for(let i=0;i< category.length;i++){%>
+                            <div class="swiper-slide" role="group" aria-label="1 / 24" style="width: 221.5px; margin-right: 30px;">
+                                <div class="job-categories-home-5">
+                                    <a href="/category-jobs/<%=category[i]._id%>"><%=category[i].category_name%>
+                                    <div class="twm-media cat-bg-clr-1">
+                                        <img style="height: 100%; width: 100%; border-radius: 50%;"  src="db_assets/p-images/<%=category[i].category_image%>" alt="Category Logo">
+                                    </div>
+                                    </a>
+                                    <div class="twm-content">
+                                        <a href="/category-jobs/<%=category[i]._id%>"><%=category[i].category_name%></a>
+                                        <!-- @php $CatRows = App\Helpers\AppHelper::instance()->getCateCount($category->id); @endphp -->
+                                        <div class="twm-jobs-available"><%=counts[category[i].category_name]||0%> Jobs Available</div>
+
+                                    </div>
+                                </div>
+                            </div>                                
+                            <%}%>
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-c4222ffd6106fb315" aria-disabled="false"></div>
+                        <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-c4222ffd6106fb315" aria-disabled="false"></div>
+                        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- ... (previous HTML code) ... -->
+
+<!-- Browse By Company Section -->
+<div class="section-full p-t60 site-bg-white job-categories-home-5-wrap twm-bdr-bottom-1 mb-5">
+    <div class="container">
+        <!-- TITLE START -->
+        <div class="section-head center wt-small-separator-outer">
+            <div class="wt-small-separator site-text-primary">
+                <div>Browse By Company</div>
+            </div>
+        </div>
+        <!-- TITLE END -->
+    </div>
+
+    <div class="section-content twm-jobs-grid-h5-section-outer">
+        <div class="twm-jobs-grid-h5-section overlay-wraper">
+            <div class="overlay-main site-bg-primary opacity-09"></div>
+
+            <div class="swiper-container category-5-slider swiper-initialized swiper-horizontal swiper-pointer-events swiper-grid">
+                <div class="swiper-wrapper" id="swiper-wrapper-c4222ffd6106fb315" aria-live="polite" style="width: 3018px; transition-duration: 0ms; transform: translate3d(-1257.5px, 0px, 0px);">
+                    <% for (const j of company) { %>
+                        <div class="swiper-slide" role="group" aria-label="1 / 24" style="width: 221.5px; margin-right: 30px;">
+                            <div class="job-categories-home-5">
+                                <a href="/company-jobs/<%=j._id%>"><%= j.comp_name %>
+                                <div class="twm-media cat-bg-clr-1">
+                                    <img style="height: 100%; width: 100%; border-radius: 50%;" src="/db_assets/p-images/<%=j.comp_logo %>" alt="Category Logo">
+                                </div>
+                               </a>
+                                <div class="twm-content">
+                                    <a href="/company-jobs/<%=j._id%>"><%= j.comp_name %></a>
+                                    <div class="twm-jobs-available">
+                                        <%= counts[j.comp_name]||0 %> Jobs Available <!-- Display the count -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-c4222ffd6106fb315" aria-disabled="false"></div>
+                <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-c4222ffd6106fb315" aria-disabled="false"></div>
+                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ... (rest of your HTML code) ... -->
+
+
+        <!-- JOB POST START -->
+        <div class="section-full p-t60 site-bg-white job-categories-home-5-wrap twm-bdr-bottom-1">
+            <div class="container">
+                <!-- TITLE START-->
+                <div class="section-head center wt-small-separator-outer">
+                    <div class="wt-small-separator site-text-primary">
+                        <div>Find Your Career You Deserve it</div>
+                    </div>
+                </div>
+                <!-- TITLE END-->
+            </div>
+
+                <div class="section-content twm-jobs-grid-h5-section-outer">
+                    <div class="twm-jobs-grid-h5-section overlay-wraper">
+                        <div class="row">
+                            <%for(let i=0;i< job.length;i++){%>
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="twm-jobs-grid-style1 m-b30">
+                                    <div class="twm-media">
+                                        <!-- @php $comp = App\Helpers\AppHelper::instance()->getCompanyInfo($job->comp_id); @endphp -->
+                                        <%for(let j=0;j< company.length;j++){%>
+                                        <%if(job[i].company==company[j].comp_name){%>
+                                         <img style="height: 100%;" src="/db_assets/p-images/<%=company[j].comp_logo%>" alt="company Logo">
+                                        <%}%>
+                                        <%}%>
+                                    </div>
+                                
+                                    <div class="twm-jobs-category green"><span class="twm-bg-green"><%=job[i].job_type%></span></div>
+                                    <div class="twm-mid-content">
+                                        <a href="/job-detail?id=<%=job[i]._id%>" class="twm-job-title">
+                                            <h6><%=job[i].job_title%></h6>
+                                        </a>
+                                        <p class="twm-job-address"><%=job[i].full_address%></p>
+                                        <p class="twm-job-address"><%=job[i].req_experience%></p>
+                                    </div>
+                                    <div class="twm-right-content">
+                                        <div class="twm-jobs-amount"><%=job[i].min_salary%> - <%=job[i].max_salary%> <span>/ Month</span></div>
+                                        <a href="/job-detail?id=<%=job[i]._id%>" class="twm-jobs-browse site-text-primary">Browse Job</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}%>
+
+                        </div>
+                        <a style="float: right;" href="/jobs" class="site-button">Browse Jobs</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- JOB POST END -->
+    </div>
+    <!-- CONTENT END -->
+<%- include('partials/footer.ejs') %>
+<%- include('partials/footer_script.ejs') %>
+<!-- @endsection -->

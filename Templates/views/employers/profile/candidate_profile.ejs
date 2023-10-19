@@ -1,0 +1,232 @@
+<%- include('../partials/main_header') %>
+<%- include('../partials/navebar_header') %>
+<%- include('../partials/side_bar') %>
+    <!--**********************************
+            Content body start
+        ***********************************-->
+    <div class="content-body">
+        <!-- row -->
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="d-flex align-items-center mb-1">
+                    <h4 class="fs-20 font-w600 mb-0 me-auto">Candidate Profile</h4>
+                </div>
+
+                <div class="col-xl-12 col-12 m-auto p-5">
+                    <div class="card">
+                        <div class="card-header border-0 flex-wrap align-items-start">
+                            <div class="col-xl-10">
+                                <div class="user d-sm-flex d-block pe-md-5 pe-0">
+                                    <%if(candidate.profile_photo != ''){%>
+                                        <img src="/db_assets/p-images/<%=candidate.profile_photo%>">
+                                    <%}else{%>
+                                        <img src="/db_assets/images/user.jpg" alt="">
+                                    <%}%>
+                                    <div class="ms-sm-3 ms-0 me-md-5 md-0">
+                                        <h5 class="mb-1 font-w600"><a href="javascript:void(0);"><%=candidate.fname%> <%=candidate.lname%></a></h5>
+                                        <div class="listline-wrapper mb-2">
+                                            <span class="item"><i class="far fa-envelope"></i><%=candidate.email%></span>
+                                            <span class="item"><i class="far fa-id-badge"></i>Candidate</span>
+                                        </div>
+                                        <p>
+                                            <%if(candidate.introduction!=''){%>
+                                                <%=candidate.introduction%>
+                                              <%}else{%>  
+                                               '----------------'
+                                            <%}%>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-0">
+                            <h4 class="fs-20">Personal Information:</h4>
+                            <div class="row">
+                                <div class="col-xl-6 col-md-6">
+                                    <p class="font-w600 mb-2 d-flex"><span class="custom-label-2">Full Name : </span><span class="font-w400"><%=candidate.fname%> <%=candidate.lname%></span></p>
+                                    <p class="font-w600 mb-2 d-flex"><span class="custom-label-2">Address :</span> <span class="font-w400">
+                                        <%if(candidate.full_address!=''){%>
+                                            <%=candidate.full_address%>
+                                            <%}else{%>  
+                                             '----------------'
+                                          <%}%>
+                                        </span></p>
+                                    <p class="font-w600 mb-2 d-flex"><span class="custom-label-2">DOB : </span><span class="font-w400">
+                                             
+                                        <% 
+                                         let dob=new Date(candidate.dob)
+                                         let options={day:'2-digit',month:'short',year:'numeric'}
+                                         let format=dob.toLocaleDateString('en',options).split(' ')
+                                         var DOB=`${format[1]} /${format[0]} /${format[2]}`
+                                         %>
+                                              <%if(DOB!=''){%>
+                                                <%=DOB%>
+                                                <%}else{%>  
+                                                 '----------------'
+                                              <%}%>
+                                        </span></p>
+                                    <p class="font-w600 mb-2 d-flex"><span class="custom-label-2">Qualification: </span><span class="font-w400">
+                                          
+                                            <%if(candidate.qualification!=''){%>
+                                                <%=candidate.qualification%>
+                                                <%}else{%>  
+                                                 '----------------'
+                                              <%}%>
+                                        </span></p>
+                                </div>
+                                <div class="col-xl-6 col-md-6">
+                                    <p class="font-w600 mb-2 d-flex"><span class="custom-label-2">Email :</span> <span class="font-w400"><%=candidate.email%></span></p>
+                                    <p class="font-w600 mb-2 d-flex"><span class="custom-label-2">Phone : </span><span class="font-w400"><%=candidate.phone%></span></p>
+                                    <p class="font-w600 mb-2 d-flex"><span class="custom-label-2">Gender : </span><span class="font-w400"><%=candidate.gende%></span></p>
+                                    <p class="font-w600 mb-2 d-flex"><span class="custom-label-2">Zip code: </span><span class="font-w400">
+                                           
+                                            <%if(candidate.zip_code!=''){%>
+                                                <%=candidate.zip_code%>
+                                                <%}else{%>  
+                                                 '----------------'
+                                              <%}%>
+                                        </span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                         <div class="col-lg-6 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="profile-blog">
+                                    <div class="plus-icon">
+                                        <h4 class="text-primary"> Resume Detail</h4>
+                                    </div>
+                                    <div class="panel-body wt-panel-body">
+                                        <div class="twm-panel-inner">
+                                           
+                                            <%if(Resume!=''&& Resume.resume_title!='')
+                                            {%>
+                                                <p><b><%=Resume.resume_title%></b></p>
+                                                <p><a class="text-danger font-w700" target="_blank" href="/db_assets/pdf_files/<%=Resume.resume%>"> Download & View Resume </a></p>
+                                            <%}else if(Resume==''){%>
+                                                <div class="profile-skills mb-5">
+                                                    <span>not add  yet!</span>
+                                                </div>
+                                             <%}%>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                         <div class="col-lg-6 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="profile-blog">
+                                    <div class="plus-icon">
+                                        <h4 class="text-primary">Skills
+                                        </h4>
+                                    </div>
+                                   
+                                    <%if(skill!=''&& skill.skill_name!=''){%>
+                                        <div class="profile-skills mb-5">
+                                            <%for(let i=0; i< skill.skill_name.length;i++){%>
+                                                <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1"><%=skill.skill_name[i]%></a>
+                                            <%}%>
+                                        </div>
+                                    <%}else if(skill==''){%>
+                                        <div class="profile-skills mb-5">
+                                            <span> not added  yet!</span>
+                                        </div>
+                                     <%}%>   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="profile-blog">
+                                        <div class="plus-icon mb-5">
+                                            <h4 class="text-primary">Employment Detail
+                                            </h4>
+                                        </div>
+                                      
+                                        <div class="profile-skills mb-5">
+                                            <div class="panel panel-default mb-3">
+                                                <%if( empExp!=''){%>
+                                                    <%for(let i=0;i< empExp.designation.length;i++){%>
+                                          
+                                                        <div class="card p-a20" style="box-shadow: 0rem 0.3125rem 13rem 15rem rgba(82, 63, 105, 0.05);">
+                                                            <div class="card-body">
+                                                                <p><%=empExp.emp_job_detail[i]%></p>
+                                                                <p><b><%=empExp.designation[i]%></b></p>
+                                                                <p><%=empExp.organization[i]%></p>
+                                                                <p>Working Since:
+                                                                    <b> <small style="font-size: 16px;"><%=empExp.working_start_date[i].toLocaleDateString() %> </small> </b>
+                                                                    -
+                                                                    <b> <small style="font-size: 16px;"> <%=empExp.working_end_date[i].toLocaleDateString()%> </small> </b>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    <%}%>
+                                                <%}else if(empExp==''){%>
+                                                    <div class="profile-skills mb-5">
+                                                        <span> Bignner!</span>
+                                                    </div>
+                                                <%}%>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="panel panel-default mb-3">
+                                        <div class="panel-heading wt-panel-heading panel-heading-with-btn ">
+                                            <div class="plus-icon mb-5">
+                                                <h4 class="text-primary">Education</h4>
+                                            </div>
+                                        </div>
+                                       
+
+                                        <%if(edu!=''){%>
+                                            <%for(let i=0;i< edu.edu_degree.length;i++){%>
+                                                <div class="card p-a20" style="box-shadow: 0rem 0.3125rem 13rem 15rem rgba(82, 63, 105, 0.05);">
+                                                    <div class="card-body">
+                                                        <p><%=edu.edu_institute_name[i]%></p>
+                                                        <p><%=edu.edu_pass_year[i]%></p>
+                                                        <p><b><%=edu.edu_degree[i]%></b></p>
+                                                    </div>
+                                                </div>
+                                            <%}%>
+                                        <%}else{%>
+                                            <div class="profile-skills mb-5">
+                                                You need to add education detail
+                                            </div>
+                                        <%}%>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--**********************************
+        Content body end
+    ***********************************-->
+<%- include('../partials/footer') %>  

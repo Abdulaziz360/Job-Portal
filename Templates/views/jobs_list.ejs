@@ -1,0 +1,232 @@
+<%- include('partials/headerlinks.ejs')%>
+    <%- include('partials/header.ejs')%>
+        <style>
+            /* Your CSS styles here */
+        </style>
+        <!-- CONTENT START -->
+        <div class="page-content">
+            <!-- INNER PAGE BANNER -->
+            <div class="wt-bnr-inr overlay-wraper bg-center"
+                style="background-image:url(../../app_assets/images/banner/1.jpg);">
+                <!-- Your banner content here -->
+            </div>
+            <!-- INNER PAGE BANNER END -->
+
+            <!-- OUR BLOG START -->
+            <div class="section-content twm-jobs-grid-h5-section-outer">
+                <div class="twm-jobs-grid-h5-section overlay-wraper">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <div class="form-group mb-4">
+                                        <h4 class="section-head-small mb-4">Job Title</h4>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control common_selector" name="job_title"
+                                                id="job_title" placeholder="Job Title">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <div class="form-group mb-4">
+                                        <h4 class="section-head-small mb-4">Category</h4>
+                                        <select class="wt-select-bar-large selectpicker common_selector" name="category_id"
+                                            id="category_id">
+                                            <option selected disabled value="">All Category</option>
+                                            <% for(let i=0; i < categories.length; i++) { %>
+                                                <option value="<%= categories[i]._id %>">
+                                                    <%= categories[i].category_name %>
+                                                </option>
+                                                <% } %>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <div class="form-group mb-4">
+                                        <h4 class="section-head-small mb-4">Company</h4>
+                                        <select class="wt-select-bar-large selectpicker common_selector" name="company_id"
+                                            id="company_id">
+                                            <option selected disabled value="">All Company</option>
+                                            <% for(let i=0; i < companies.length; i++) { %>
+                                                <option value="<%= companies[i]._id %>">
+                                                    <%= companies[i].comp_name %>
+                                                </option>
+                                                <% } %>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <div class="form-group mb-4">
+                                        <h4 class="section-head-small mb-4">Job Type</h4>
+                                        <select class="wt-select-bar-large selectpicker common_selector" name="job_type"
+                                            id="job_type">
+                                            <option disabled="" selected value="">Select Job Type</option>
+                                            <option value="Full Time">Full Time</option>
+                                            <option value="Part Time">Part Time</option>
+                                            <option value="Remote">Remote</option>
+                                            <option value="Freelance">Freelance</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Append here job Collection -->
+                           
+                            <div class="row" id="jobs_collection">
+                                <!-- Your job listing content here -->
+                            </div>
+                          
+                            <!-- Append here job load btn -->
+                            <div class="pagination-outer"id="loadmorebtn">
+                               
+                            </div>
+                            
+                                
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- OUR BLOG END -->
+        </div>
+        <!-- CONTENT END -->
+        <%- include('partials/footer.ejs') %>
+ <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+ <script>
+  function generateJobsHtml(jobs) {
+    let html = '';
+
+    // Check if jobs array is not empty
+    if (jobs && jobs.length > 0) {
+        jobs.forEach((job) => {
+            html+=`<div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="twm-jobs-grid-style1 mb-4">
+                                        <div class="twm-media">
+                                            <img style="height: 100%; width: 100%; border-radius: 10%;" src="/db_assets/p-images/${job.company_id.comp_logo}" alt="Company Logo">
+                                        </div>
+                                        <span class="twm-job-post-duration"> ' . $date . ' Days Ago </span>
+                                        <div class="twm-jobs-category green"><span class="twm-bg-' . $color . '">' . $text . '</span></div>
+                                        <div class="twm-mid-content">
+                                            <a href="/job-detail?id=${job._id}" class="twm-job-title">
+                                                <h6>${job.job_title}</h6>
+                                            </a>
+                                            <p class="twm-job-address">${job.full_address}</p>
+                                            <p class="twm-job-address">${job.category}</p>
+                                        </div>
+                                        <div class="twm-right-content">
+                                            <div class="twm-jobs-amount">${job.min_salary} -  ${job.max_salary}  <span>/ Month</span></div>
+                                            <a href="/job-detail?id=${job._id}" class="twm-jobs-browse site-text-primary">Browse Job</a>
+                                        </div>
+                                    </div>
+                                </div>`;
+                            });
+                                
+    } else {
+        // Handle the case when no jobs are found
+        html +=`<div style="display: flex; width: 100%; margin: auto; justify-content: center; align-items:center; margin-top: 40px;">
+                            <h5 class="text-center text-dark" style="word-break: break-word;line-height: 1.43; font-size: 22px; font-weight: 800; margin-bottom: 25px;">There were no products found against your search</h5>
+                        </div>
+                        <div style="display: flex; width: 100%; margin: auto; justify-content: center; align-items:center; margin-top: 10px;">
+                           <p class="text-center text-dark" style="font-size: 14px; margin-bottom: 20px;">Please check your spelling or use different keywords.</p>
+                        </div>
+                      <div style="display: flex; width: 100%; margin: auto; justify-content: center; align-items:center;">
+                           <a href="/" class="btn text-white theme-bg-color btn-md mt-sm-4 mt-3 fw-bold" style="font-size: 1.125rem;height: 3rem;padding: 0 1.5rem; border-radius: 62.5rem; width: 200px;">Return to home</a>
+                      </div>`;
+    }
+
+    return html;
+}              
+function generatePaginationHtml(pagination) {
+    let html = '';
+
+    if (pagination.totalpages > 1) {
+        html += '<div class="twm-mid-content" style="background:blue;colore:red;padding:15px; width:80px;margin:auto; border-radius:15px; text-align: center;">'; // Open the outer div
+
+        // html += '<span style="color: blue; background:blue;font-size:22px>'; // Open the inner div
+
+        if (pagination.currentpage || pagination.currentpage < pagination.totalpages ) {
+            html += `<a style="color:white;" href="#" data-page="${pagination.prev}">Pre..</a>`;
+        // }
+
+        // for (let i = 0; i < pagination.pages.length; i++) {
+        //     html += `<a style="color:white;" href="#" data-page="${pagination.pages[i]}">${pagination.pages[i]}</a>`;
+        // }
+
+        // if (pagination.currentpage < pagination.totalpages) {
+            html += `<a style="color:white;" href="#" data-page="${pagination.next}">Next</a>`;
+        }
+
+        // html += '</span>'; // Close the inner div
+
+        html += '</div>'; // Close the outer div
+    }
+
+    return html;
+}
+
+
+$(document).ready(function () {
+    let currentPage = 1;
+    let searchPerformed = false;
+
+    // Function to handle pagination link clicks
+    function handlePaginationClick() {
+        $("#loadmorebtn").on("click", "a", function (e) {
+            e.preventDefault();
+            const page = $(this).data("page");
+            currentPage = page;
+            filter_data(currentPage);
+        });
+    }
+
+    // Filter the records code
+    function filter_data(page = 1) {
+        let category_id = $('#category_id').val();
+        let company_id = $('#company_id').val();
+        let job_title = $('#job_title').val();
+        let job_type = $('#job_type').val();
+
+        $.ajax({
+            url: `/load-filters-jobs?page=${page}`,
+            method: "GET",
+            data: {
+                category_id: category_id,
+                job_type: job_type,
+                job_title: job_title,
+                company_id: company_id,
+            },
+            success: function (data) {
+                var jobs = data.jobs;
+                var pagination = data.pagination;
+
+                $("#jobs_collection").html(generateJobsHtml(jobs));
+                $("#loadmorebtn").html(generatePaginationHtml(pagination));
+
+                if (!searchPerformed) {
+                    searchPerformed = true;
+                    handlePaginationClick(); // Add event handler after initial search
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX request failed:", status, error);
+            }
+        });
+    }
+
+    // Filter the records when filters change
+    $('.common_selector').on('change', function () {
+        filter_data(currentPage);
+    });
+
+    $('#job_title').on('keyup', function () {
+        filter_data(currentPage);
+    });
+});
+
+
+</script>            
+<%- include('partials/footer_script.ejs') %>

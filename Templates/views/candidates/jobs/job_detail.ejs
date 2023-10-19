@@ -1,0 +1,154 @@
+<%- include('../partials/main_header') %>
+<%- include('../partials/navebar_header') %>
+<%- include('../partials/side_bar') %>
+    <style>
+        .card {
+            height: auto !important;
+        }
+    </style>
+
+    <!--**********************************
+            Content body start
+        ***********************************-->
+    <div class="content-body">
+        <!-- row -->
+        <div class="container-fluid">
+            <div class="d-flex align-items-center mb-4 flex-wrap">
+                <h4 class="fs-20 font-w600  me-auto">Job View</h4>
+            </div>
+            <div class="row">
+                <div class="col-xl-3 col-xxl-4">
+                    <div class="row">
+                        <div class="col-xl-12">
+
+                            <div class="card">
+                                <div class="card-header border-0 pb-0">
+                                    <h4 class="fs-20 mb-0">Job Featured Image </h4>
+                                </div>
+                                <div class="card-body">
+                                    <img class="rounded-circle img-fluid" src="/db_assets/p-images/<%=job.job_image%>">
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header border-0 pb-0">
+                                    <h4 class="fs-20 mb-0">Overview</h4>
+                                </div>
+                                <div class="card-body pt-4">
+                                    <div class="mb-3 d-flex">
+                                        <h5 class="mb-1 fs-14 custom-label">Job Title:</h5>
+                                        <span><%=job.job_title%></span>
+                                    </div>
+                                    <div class="mb-3 d-flex">
+                                        <h5 class="mb-1 fs-14 custom-label">Experience:</h5>
+                                        <span><%=job.req_experience%></span>
+                                    </div>
+                                    <div class="mb-3 d-flex">
+                                        <h5 class="mb-1 fs-14 custom-label">Vacancy:</h5>
+                                        <span><%=job.vacancies%></span>
+                                    </div>
+
+                                    <div class="mb-3 d-flex">
+                                        <h5 class="mb-1 fs-14 custom-label">State & City:</h5>
+                                        <span><%=job.state%> , <%=job.city%></span>
+                                    </div>
+
+
+                                    <div class="mb-3 d-flex">
+                                        <h5 class="mb-1 fs-14 custom-label">Address:</h5>
+                                        <span><%=job.full_address%></span>
+                                    </div>
+
+                                    <div class="mb-3 d-flex">
+                                        <h5 class="mb-1 fs-14 custom-label">Job Type:</h5>
+                    `                    <span><%=job.job_type%></span>
+                                    </div>
+                                    <div class="mb-3 d-flex">
+                                        <h5 class="mb-1 fs-14 custom-label">Posted Date:</h5>
+                                     
+                                            <% 
+                                              let c_date =new Date(job.created_at)
+                                              let c_options={day:'2-digit',month:'short',year:'numeric'}
+                                              let c_format=c_date.toLocaleDateString('en-Us',c_options).split(' ')
+                                              let Posted_date=`${c_format[1]} ${c_format[0]},${c_format[2]}`
+                                            %>
+                                       
+                                        <span><%=Posted_date%></span>
+                                    </div>
+                                    <div class="mb-3 d-flex">
+                                        <h5 class="mb-1 fs-14 custom-label">Closed Date:</h5>
+                                        <% 
+                                              let date =new Date(job.job_close_date)
+                                              let options={day:'2-digit',month:'short',year:'numeric'}
+                                              let format=date.toLocaleDateString('en-Us',options).split(' ')
+                                              let closed_date=`${format[1]} ${format[0]},${format[2]}`
+                                        %>
+                                      
+                                        <span><%=closed_date%></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xl-9 col-xxl-8">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-header d-block">
+                                    <h4 class="fs-20 d-block"><a href="javascript:void(0);"><%=job.job_title%></a></h4>
+                                    <div class="d-block">
+                                        
+                                        <span class="me-2"><a href="javascript:void(0);" title="Company Name"><i class="fas fa-briefcase me-2"></i><%=company.comp_name%></a></span>
+                                        <span class="me-2"><a href="javascript:void(0);" title="Company Address"><i class="fas fa-map-marker-alt me-2"></i><%=company.full_address%></a></span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="fs-20 mb-3">Description</h4>
+                                    <div class="ms-4">
+                                        <p><%=job.short_description%></p>
+                                    </div>
+                                    <hr>
+
+                                    <h4 class="fs-20 mb-3">Requirements & More Description</h4>
+                                    <div class="ms-4">
+                                        <p> <%=job.description.replace(/<\/?p>/g, '')%> </p>
+                                    </div>
+                                    <hr>
+
+                                    <h4 class="fs-20 mb-3">Job Details</h4>
+                                    <div class="row mb-3">
+                                        <div class="col-xl-6">
+                                            <div class="ms-4">
+                                                <p class="font-w500 mb-3"><span class="custom-label">Job Title :</span><span class="font-w400"> <%=job.job_title%></span></p>
+                                                <p class="font-w500 mb-3"><span class="custom-label">Job Category:</span><span class="font-w400"> <%=job.category_name%></span></p>
+                                                <p class="font-w500 mb-3"><span class="custom-label">Min Salary:</span><span class="font-w400"> <%=job.min_salary%></span></p>
+                                                <p class="font-w500 mb-3"><span class="custom-label">Max Salary:</span><span class="font-w400"> <%=job.max_salary%></span></p>
+                                                <p class="font-w500 mb-3"><span class="custom-label">Job Tags:</span><span class="font-w400"> <%=job.job_tags%></span></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="ms-4">
+                                                <p class="font-w500 mb-3"><span class="custom-label">Job Experience:</span><span class="font-w400"> <%=job.req_experience%> +</span></p>
+                                                <p class="font-w500 mb-3"><span class="custom-label">Job For:</span><span class="font-w400"> <%=job.gender%></span></p>
+                                                <p class="font-w500 mb-3"><span class="custom-label">Eligibility:</span><span class="font-w400"> <%=job.req_qualification%></span></p>
+                                                <p class="font-w500 mb-3"><span class="custom-label">Company :</span><span class="font-w400"> <%=job.company%></span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!--**********************************
+        Content body end
+    ***********************************-->
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,284 @@
+<%- include('partials/main_header') %>
+<%- include('partials/navebar_header') %>
+<%- include('partials/side_bar') %>
+    <!--**********************************
+   Content body start
+   ***********************************-->
+    <div class="content-body">
+     
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-6 col-6 col-sm-12">
+                    <div class="row separate-row">
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="widget-stat card">
+                                <div class="card-body p-4">
+                                    <div class="media ai-icon">
+                                       <span class="me-3 bgl-primary text-primary">
+                                          <!-- <i class="ti-user"></i> -->
+                                          <svg id="icon-customers" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                             <circle cx="12" cy="7" r="4"></circle>
+                                          </svg>
+                                       </span>
+                                        <div class="media-body">
+                                            <p class="mb-1">Total Applied Jobs</p>
+                                            <h4 class="mb-0">
+                                                <!-- @php
+                                                    $taJobs = \App\Helpers\AppHelper::instance()->getCaTAppJobs(Auth::user()->id);
+                                                @endphp -->
+                                                <%=apply_job%>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="widget-stat card">
+                                <div class="card-body p-4">
+                                    <div class="media ai-icon">
+                                       <span class="me-3 bgl-primary text-primary">
+                                          <!-- <i class="ti-user"></i> -->
+                                          <svg id="icon-customers" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                             <circle cx="12" cy="7" r="4"></circle>
+                                          </svg>
+                                       </span>
+                                        <div class="media-body">
+                                            <p class="mb-1">Total Saved Jobs</p>
+                                            <h4 class="mb-0">
+                                                
+                                                <%=save_job%>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row separate-row">
+                        <div class="col-xl-12 col-xxl-12">
+                            <div class="card">
+                                <div class="card-header d-block">
+                                    <h4 class="card-title">Incomplete Information Notifications</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <%if(user.profile_photo == '' && user.full_address == ''){%>
+                                            <div class="col-xl-12">
+                                                <div class="alert alert-success solid alert-dismissible fade show">
+                                                    <div class="media">
+                                                        <div class="media-body">
+                                                            <h5 class="mt-1 mb-2 text-white">Profile Notifications</h5>
+                                                            <p class="mb-0">
+                                                                We noticed that you have not completed your profile to apply for jobs on our platform.
+                                                                Completing your profile is
+                                                                an important step that can greatly enhance your chances of success in finding your dream job
+                                                                .</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <%}%>
+
+                                        <%if(CaSkillCount == 0){%>
+                                            <div class="col-xl-12">
+                                                <div class="alert alert-info solid alert-dismissible fade show">
+                                                    <div class="media">
+                                                        <div class="media-body">
+                                                            <h5 class="mt-1 mb-2 text-white">Skills Notifications</h5>
+                                                            <p class="mb-0">
+                                                                Complete your skills to boost job prospects. Showcase your expertise, stand out to employers. Need help? Contact our support team. Do not miss out on valuable opportunities.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%}%>
+                                            <%if(CaEduCount == 0){%>
+                                                <div class="col-xl-12">
+                                                    <div class="alert alert-warning solid alert-dismissible fade show">
+                                                        <div class="media">
+                                                            <div class="media-body">
+                                                                <h5 class="mt-1 mb-2 text-white">Education  Notifications</h5>
+                                                                <p class="mb-0">
+                                                                    Complete your education details for better job prospects. Highlight your qualifications,
+                                                                    stand out to employers. Need help? Contact our support team.
+                                                                    Don't miss out on valuable opportunitie.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <%}%>
+
+                                            <%if(CaEmpCount == 0){%>
+                                                <div class="col-xl-12">
+                                                    <div class="alert alert-danger solid alert-dismissible fade show">
+                                                        <div class="media">
+                                                            <div class="media-body">
+                                                                <h5 class="mt-1 mb-2 text-white">Past Employment Notifications</h5>
+                                                                <p class="mb-0">
+                                                                    Complete your past experience for better job prospects.
+                                                                    Showcase your work history, stand out to employers.
+                                                                    Need help? Contact our support team. Don't miss out on valuable opportunities.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <%}%>
+
+                                            
+                                            <%if(count == 3 || count > 3){%>
+                                                <div class="col-xl-12">
+                                                    <div class="alert alert-success solid alert-dismissible fade show">
+                                                        <div class="media">
+                                                            <div class="media-body">
+                                                                <h5 class="mt-1 mb-2 text-white">Complete Resume Notifications</h5>
+                                                                <p class="mb-0">
+                                                                    Congratulations on completing your resume details!
+                                                                    You're one step closer to your dream job. Showcase your skills and experience to employers.
+                                                                    Need help? Contact our support team. Good luck with your job search                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            <%}%>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-6 col-sm-12">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row ">
+                                        <div class="col-xl-8 col-xxl-7 col-sm-7">
+                                            <div class="update-profile d-flex">
+
+                                                <%if(user && user.profile_photo!=''){%>
+                                                    <img src="/db_assets/p-images/<%=user.profile_photo%>">
+                                                <%}%>
+                                                <%if(user.profile_photo==''){%>
+                                                    <img src="/db_assets/images/user.jpg" alt="">
+                                                <%}%>
+
+                                                <div class="ms-4">
+                                                    <h3 class="fs-24 font-w600 mb-0"><%=user.first_name%> <%=user.last_name%></h3>
+                                                    <span><i class="fas fa-map-marker-alt me-1"></i>
+                                                     <!-- @php $useradress = Auth::user()->full_address != '' ? Auth::user()->full_address : '----------------';@endphp -->
+                                                        <%=user.full_address%>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-xxl-5 col-sm-5 sm-mt-auto mt-3 text-sm-end">
+                                            <a href="/candidates/profile-setting" class="btn btn-primary">Update Profile</a>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4 align-items-center">
+                                        <h4 class="fs-20 mb-3">Resume Detail Completion</h4>
+                                        <div class="col-xl-6 col-sm-6">
+                                            <div class="progress default-progress">
+
+                                                <div class="progress-bar bg-green progress-animated" style="width:<%=tcount%>%; height:13px;" role="progressbar">
+                                                    <span class="sr-only"><%=tcount%>% Complete</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex align-items-end mt-2 pb-4 justify-content-between">
+                                                <span class="fs-14 font-w500">Skills</span>
+                                                <span class="fs-16"><span class="text-black pe-2"></span><%=CaSkillCount%>%</span>
+                                            </div>
+                                            <div class="progress default-progress">
+                                                <div class="progress-bar bg-primary progress-animated" style="width:<%=CaSkillCount%>%;height:13px;" role="progressbar">
+                                                    <span class="sr-only"><%=CaSkillCount%>% Complete</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex align-items-end mt-2 pb-4 justify-content-between">
+                                                <span class="fs-14 font-w500">Education</span>
+                                                <span class="fs-16"><span class="text-black pe-2"></span><%=CaEduCount%>%</span>
+                                            </div>
+                                            <div class="progress default-progress">
+                                                <div class="progress-bar bg-info progress-animated" style="width:<%=CaEduCount%>%; height:13px;" role="progressbar">
+                                                    <span class="sr-only"><%=CaEduCount%>% Complete</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-end mt-2 pb-4 justify-content-between">
+                                                <span class="fs-14 font-w500">Employment Experience</span>
+                                                <span class="fs-16"><span class="text-black pe-2"></span><%=CaEmpCount%>%</span>
+                                            </div>
+                                            <div class="progress default-progress">
+                                                <div class="progress-bar bg-blue progress-animated" style="width:<%=CaEmpCount%>%; height:13px;" role="progressbar">
+                                                    <span class="sr-only"><%=CaEmpCount%>% Complete</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--**********************************
+       Content body end
+       ***********************************-->
+       
+       <script>
+           function JobickCarousel()
+           {
+               
+               /*  testimonial one function by = owl.carousel.js */
+               jQuery('.front-view-slider').owlCarousel({
+                   loop:false,
+                   margin:30,
+                nav:true,
+                autoplaySpeed: 3000,
+                navSpeed: 3000,
+                autoWidth:true,
+                paginationSpeed: 3000,
+                slideSpeed: 3000,
+                smartSpeed: 3000,
+                autoplay: false,
+                animateOut: 'fadeOut',
+                dots:true,
+                navText: ['', ''],
+                responsive:{
+                    0:{
+                        items:1
+                    },
+
+                    480:{
+                        items:1
+                    },
+
+                    767:{
+                        items:3
+                    },
+                    1750:{
+                        items:3
+                    }
+                }
+            })
+        }
+
+        jQuery(window).on('load',function(){
+            setTimeout(function(){
+                JobickCarousel();
+            }, 1000);
+        });
+    </script>
+  <%- include('partials/footer') %>

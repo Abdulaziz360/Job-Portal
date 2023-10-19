@@ -1,0 +1,332 @@
+<%- include('partials/headerlinks.ejs')%>
+<%- include('partials/header.ejs')%>
+    <div class="page-content" style="transform: none;">
+        <!-- INNER PAGE BANNER -->
+        <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url(../../app_assets/images/banner/1.jpg);">
+            <div class="overlay-main site-bg-white opacity-01"></div>
+            <div class="container">
+                <div class="wt-bnr-inr-entry">
+                    <div class="banner-title-outer">
+                        <div class="banner-title-name">
+                          
+                            <h2 class="wt-title"><%=job.job_title%></h2>
+                          
+                        </div>
+                    </div>
+                    <div>
+                        <ul class="wt-breadcrumb breadcrumb-style-2">
+                            <li><a href="/">Home</a></li>
+                            <li>Job Detail</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-full  p-b30 bg-white" style="transform: none;">
+            <div class="container" style="transform: none;">
+                <div class="section-content" style="transform: none;">
+                    <div class="row d-flex justify-content-center" style="transform: none;">
+                        <div class="col-lg-8 col-md-12 mt-3">
+                            <!-- @php
+                                $jtype = App\Helpers\AppHelper::instance()->getJobType($job->job_type);
+                                $text = $jtype[1];
+                                $color = $jtype[0];
+                            @endphp -->
+                                <!-- Candidate detail START -->
+                            <div class="cabdidate-de-info">
+                                <div class="twm-job-self-wrap">
+                                    <div class="twm-job-self-info">
+                                        <div class="twm-job-self-top">
+                                            <div class="twm-media-bg">
+                                                <img src="/db_assets/p-images/<%=job.job_image%>" alt="#">
+                                                <div class="twm-jobs-category green"><span class="twm-bg-green"><%=job.job_type%></span></div>
+                                            </div>
+                                            <div class="twm-mid-content">
+                                                <!-- @php
+                                                    $comp = App\Helpers\AppHelper::instance()->getCompanyInfo($job->comp_id);
+                                                    $date = App\Helpers\AppHelper::instance()->getDaysAgo($job->created_at);
+                                                    $category = App\Helpers\AppHelper::instance()->getCategoryInfo($job->category_id);
+                                                    $crdate =  date("d M, Y", strtotime($job->created_at));
+                                                    $closedate =  date("d M, Y", strtotime($job->job_close_date));
+                                                @endphp -->
+                                                
+                                                <div class="twm-media">
+                                                  
+                                                    <img src="/db_assets/p-images/<%=company.comp_logo%>" alt="#">
+                                                 
+                                                       
+                                                </div>
+                                                <h4 class="twm-job-title"><%=job.job_title%> /<%=job.category%> <span class="twm-job-post-duration">/ <%= daysAgo %> days ago</span></h4>
+                                                <p class="twm-job-address"><i class="feather-map-pin"></i><%=job.full_address%></p>
+                                                <div class="twm-job-self-mid">
+                                                    <div class="twm-job-self-mid-left">
+                                                        <div class="twm-jobs-amount"><%=job.min_salary%> -<%=job.max_salary%> <span>/Month</span></div>
+                                                    </div>
+                                                    <div class="twm-job-apllication-area">Application ends:
+                                                        <span class="twm-job-apllication-date"><%=jobC_date%></span>
+                                                    </div>
+                                                </div>
+                                                <div class="twm-job-self-bottom">
+                                                    <%if(user_data){%>
+                                                        <%if(user_data.role_as == 2){%>
+                                                         
+                                                             
+                                                            <!-- job_detail.ejs -->
+                                                            <%if(applied_msg=='Applied'){%>
+                                                                <button style="background-color: rgb(61, 183, 61);" class="site-button apply_on_job"><%=applied_msg%></button>   
+                                                                <%}else{%>
+                                                         <form action="/candidates/apply?jobid=<%=job._id %>" method="POST"style="display: inline;">
+                                                            
+                                                             <button type="submit"class="site-button apply_on_job">Apply Now</button>
+                                                        </form>
+                                                        <%}%>
+                                                        <%if(saved_msg=='saved'){%>
+                                                            <button style="background-color: rgb(61, 183, 61);"  class="site-button save_on_job"><%=saved_msg%></button>
+                                                        <%}else{%>
+                                                        <form action="/candidates/save?jobid=<%=job._id%>" method="POST" style="display: inline;">
+                                                             <button type="submit"class="site-button save_on_job">Save</button>
+                                                        </form>
+                                                         
+                                                        <%}%>    
+                                                        <%}%>
+                                                            <!-- <a class="site-button apply_on_job" data-job_id="{{ $job->id }}" data-emp_id="{{ $job->emp_id }}" href="javascript:void(0);">Apply Now</a> -->
+                                                   
+                                                            <!-- <a class="site-button save_on_job" data-job_id="{{ $job->id }}" data-emp_id="{{ $job->emp_id }}" href="javascript:void(0);">Save Now</a> -->
+                                                        
+                                                    <%}%>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="twm-s-title">Job Description:</h4>
+                                <p> <%=job.short_description%></p>
+                                <h4 class="twm-s-title">Requirments & Responsabilities:</h4>
+                                <ul class="description-list-2">
+                                    <%=job.description%>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 rightSidebar" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+                            <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none; top: 0px; left: 881.5px;">
+                                <div class="side-bar mb-4">
+                                    <div class="twm-s-info2-wrap mb-3">
+                                        <div class="twm-s-info2">
+                                            <h4 class="section-head-small mb-2">Job Information</h4>
+                                            <ul class="twm-job-hilites2">
+                                                <li>
+                                                    <div class="twm-s-info-inner">
+                                                        <i class="fas fa-calendar-alt"></i>
+                                                        <span class="twm-title">Date Posted</span>
+                                                        <div class="twm-s-info-discription"><%=jobPost_date%></div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="twm-s-info-inner">
+                                                        <i class="fas fa-map-marker-alt"></i>
+                                                        <span class="twm-title">Location</span>
+                                                        <div class="twm-s-info-discription"><%=job.state%>,<%=job.city%> </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="twm-s-info-inner">
+                                                        <i class="fas fa-user-tie"></i>
+                                                        <span class="twm-title">Job Category</span>
+                                                        <div class="twm-s-info-discription"><%=job.category%></div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="twm-s-info-inner">
+                                                        <i class="fas fa-clock"></i>
+                                                        <span class="twm-title">Experience</span>
+                                                        <div class="twm-s-info-discription"><%=job.req_experience%></div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="twm-s-info-inner">
+                                                        <i class="fas fa-suitcase"></i>
+                                                        <span class="twm-title">Qualification</span>
+                                                        <div class="twm-s-info-discription"><%=job.req_qualification%> </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="twm-s-info-inner">
+                                                        <i class="fas fa-venus-mars"></i>
+                                                        <span class="twm-title">Gender</span>
+                                                        <div class="twm-s-info-discription"><%=job.gender%></div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="twm-s-info-inner">
+                                                        <i class="fas fa-money-bill-wave"></i>
+                                                        <span class="twm-title">Offered Salary</span>
+                                                        <div class="twm-s-info-discription"><%=job.min_salary%> - <%=job.max_salary%> / Month</div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="widget tw-sidebar-tags-wrap">
+                                        <h4 class="section-head-small mb-2">Job Skills</h4>
+                                        <div class="tagcloud">
+                                            <a href="javascript:void(0)"><%=job.job_tags%></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="twm-s-info3-wrap mb-3">
+                                    <div class="twm-s-info3">
+                                        <div class="twm-s-info-logo-section">
+                                            <div class="twm-media">
+                                                    
+                                                <img src="/db_assets/p-images/<%=company.comp_logo%>" alt="#">
+                                               
+                                            </div>
+                                            <h4 class="twm-title"><%=job.job_title%></h4>
+                                        </div>
+                                        <ul>
+                                            <li>
+                                                <div class="twm-s-info-inner">
+                                                    <i class="fas fa-building"></i>
+                                                    <span class="twm-title">Company</span>
+                                                    <div class="twm-s-info-discription"><%=company.comp_name%></div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="twm-s-info-inner">
+                                                    <i class="fas fa-mobile-alt"></i>
+                                                    <span class="twm-title">Phone</span>
+                                                    <div class="twm-s-info-discription">+<%=company.comp_phone%></div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="twm-s-info-inner">
+                                                    <i class="fas fa-at"></i>
+                                                    <span class="twm-title">Email</span>
+                                                    <div class="twm-s-info-discription"><%=company.comp_email%></div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="twm-s-info-inner">
+                                                    <i class="fas fa-user"></i>
+                                                    <span class="twm-title">Employees</span>
+                                                    <div class="twm-s-info-discription"><%=company.comp_team_size%></div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="twm-s-info-inner">
+                                                    <i class="fas fa-map-marker-alt"></i>
+                                                    <span class="twm-title">Address</span>
+                                                    <div class="twm-s-info-discription"><%=company.full_address%></div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- OUR BLOG END -->
+    </div>
+<!-- @endsection -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script>
+    // //apply job code
+    // $(document).on("click",".apply_on_job", function (e) {
+    //     e.preventDefault();
+    //     let btn = $(this);
+    //     btn.text('Applying...');
+    //     btn.attr("disabled", false);
+    //     $('.input-error').remove();
+    //     let job_id = $(this).data('job_id');
+    //     let emp_id = $(this).data('emp_id');
+    //     let formData = new FormData();
+    //     formData.append("job_id", job_id);
+    //     formData.append("emp_id", emp_id);
+    //     $.ajaxSetup({
+    //         headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')}
+    //     });
+    //     let url = "/apply-on-job";
+    //     $.ajax({
+    //         url: url,
+    //         type: "POST",
+    //         data: formData,
+    //         processData: false,
+    //         contentType: false,
+    //         cache: false,
+    //         async: false,
+    //         success: function(success) {
+    //             let response = JSON.parse(success);
+    //             if (response.status == 200) {
+    //                 btn.text('Applied...');
+    //                 btn.attr("disabled", true);
+    //                 toastr.success('Your job application has been successfully submitted.Our team will review your application in shortly.We will contact you if your application is shortlisted for further consideration','Congratulations!',{timeOut: 12000,positionClass:'toast-bottom-right',toastClass:'success-custom-toast',progressBar:'true'});
+    //                 setTimeout(() => {
+    //                     window.location.reload();
+    //                 }, 8000);
+    //             } else if (response.status == 201) {
+    //                 btn.text('Already Applied');
+    //                 btn.attr("disabled", true);
+    //                 toastr.error('We apologize, You have already applied on this job. Your application has been received and is currently under review.','Oops!',{timeOut: 12000,positionClass:'toast-bottom-right',toastClass:'error-custom-toast',progressBar:'true'});
+    //             } else if (response.status == 202) {
+    //                 btn.text('Incomplete Resume');
+    //                 btn.attr("disabled", false);
+    //                 toastr.error('You have incomplete details for apply on that job please provide the missing information of skills, education, and other relevant experience','Oops!',{timeOut: 12000,positionClass:'toast-bottom-right',toastClass:'error-custom-toast',progressBar:'true'});
+    //             }
+    //         }
+    //     });
+    // });
+
+    // //saved job request
+    // $(document).on("click",".save_on_job", function (e) {
+    //     e.preventDefault();
+    //     let btn = $(this);
+    //     btn.text('Saving...');
+    //     btn.attr("disabled", false);
+    //     $('.input-error').remove();
+    //     let job_id = $(this).data('job_id');
+    //     let emp_id = $(this).data('emp_id');
+    //     let formData = new FormData();
+    //     formData.append("job_id", job_id);
+    //     formData.append("emp_id", emp_id);
+    //     $.ajaxSetup({
+    //         headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')}
+    //     });
+    //     let url = "/save-on-job";
+    //     $.ajax({
+    //         url: url,
+    //         type: "POST",
+    //         data: formData,
+    //         processData: false,
+    //         contentType: false,
+    //         cache: false,
+    //         async: false,
+    //         success: function(success) {
+    //             let response = JSON.parse(success);
+    //             if (response.status == 200) {
+    //                 btn.text('saved...');
+    //                 btn.attr("disabled", true);
+    //                 toastr.success('Your job has been successfully saved.','Congratulations!',{timeOut: 12000,positionClass:'toast-bottom-right',toastClass:'success-custom-toast',progressBar:'true'});
+    //                 setTimeout(() => {
+    //                     window.location.reload();
+    //                 }, 8000);
+    //             } else if (response.status == 201) {
+    //                 btn.text('Already Saved');
+    //                 btn.attr("disabled", true);
+    //                 toastr.error('We apologize,This job has already been saved','Oops!',{timeOut: 12000,positionClass:'toast-bottom-right',toastClass:'error-custom-toast',progressBar:'true'});
+    //             }else if (response.status == 202) {
+    //                 btn.text('Not Saved');
+    //                 btn.attr("disabled", false);
+    //                 toastr.error('Sorry, you have already applied for this job. You can not save it.','Oops!',{timeOut: 12000,positionClass:'toast-bottom-right',toastClass:'error-custom-toast',progressBar:'true'});
+    //             }
+    //         }
+    //     });
+    // });
+
+</script>
+<%- include('partials/footer.ejs')%>
+<%- include('partials/footer_script.ejs')%>

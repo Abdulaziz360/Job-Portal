@@ -1,0 +1,108 @@
+<!-- HEADER START -->
+<header  class="site-header header-style-3 mobile-sider-drawer-menu">
+
+    <div class="sticky-header main-bar-wraper  navbar-expand-lg">
+        <div class="main-bar">
+
+            <div class="container-fluid clearfix">
+
+                <div class="logo-header">
+                    <div class="logo-header-inner logo-header-one">
+                        <a href="{{ url('/') }}">
+                                   <img src="{{ asset('app_assets/images/logo-dark.png')}}" alt="">
+                        </a>
+                    </div>
+                </div>
+
+                <!-- NAV Toggle Button -->
+                <button id="mobile-side-drawer" data-target=".header-nav" data-toggle="collapse" type="button" class="navbar-toggler collapsed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar icon-bar-first"></span>
+                    <span class="icon-bar icon-bar-two"></span>
+                    <span class="icon-bar icon-bar-three"></span>
+                </button>
+
+                <!-- MAIN Vav -->
+                <div class="nav-animation header-nav navbar-collapse collapse d-flex justify-content-center">
+
+                    <ul class=" nav navbar-nav">
+                        <li class="has-child"><a href="/">Home</a></li>
+                        <li class="has-child"><a href="/jobs">Jobs</a></li>
+                        <li class="has-child"><a href="/employers">Employers</a></li>
+                        <li class="has-child"><a href="/candidates">Candidates</a></li>
+
+                        <li class="has-child"><a href="javascript:;">Pages</a>
+                            <ul class="sub-menu">
+                                <li><a href="/about-us">About Us</a></li>
+                                <li><a href="/faq">FAQ's</a></li>
+                                <li><a href="/contact-us">Contact Us</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <!-- Header Right Section-->
+                <div class="extra-nav header-2-nav">
+                    <div class="extra-cell">
+                        <div class="header-nav-btn-section">
+                            <div class="twm-nav-btn-left">
+                                <% if (user && user.fname) { %>
+                                    <% if (user.role_as == 1) { %>
+                                        <a target="_blank" class="twm-nav-sign-up" href="/employers/employer-dashboard">
+                                            <i class="feather-log-in"></i> <%=user.fname%><%=user.lname%>
+                                        </a>
+                                    <% } else if (user.role_as == 2) { %>
+                                        <a target="_blank" class="twm-nav-sign-up" href="/candidates/candidate-dashboard">
+                                            <i class="feather-log-in"></i> <%=user.fname%><%=user.lname%>
+                                        </a>
+                                        
+                                    <% } %>
+                                <% } else { %>
+                                    <a target="_blank" class="twm-nav-sign-up" href="/login">
+                                        <i class="feather-log-in"></i> Login
+                                    </a>
+                                <% } %>
+                                
+                            </div>
+                        <% if (user && user.role_as == 1 ||user && user.role_as==2) { %>
+                            <div class="twm-nav-btn-left">
+                          
+                                <a target="_blank" class="twm-nav-sign-up" href="/logout">
+                                    <i class="feather-log-in"></i> Logout
+                                </a>
+
+                            </div>
+                        <%}%>    
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <!-- SITE Search -->
+        <div id="search">
+            <span class="close"></span>
+            <form role="search" id="searchform" action="/search" method="get" class="radius-xl">
+                <input class="form-control" value="" name="q" type="search" placeholder="Type to search"/>
+                <span class="input-group-append">
+                            <button type="button" class="search-btn">
+                                <i class="fa fa-paper-plane"></i>
+                            </button>
+                        </span>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+</header>
+<!-- HEADER END -->

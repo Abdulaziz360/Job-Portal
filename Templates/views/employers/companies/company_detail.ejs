@@ -1,0 +1,119 @@
+<%- include('../partials/main_header') %>
+<%- include('../partials/navebar_header') %>
+<%- include('../partials/side_bar') %>
+    <style>
+        .card {
+            height: auto !important;
+        }
+    </style>
+    <!--**********************************
+            Content body start
+        ***********************************-->
+    <div class="content-body">
+        <!-- row -->
+        <div class="container-fluid">
+            <div class="d-flex align-items-center mb-4 flex-wrap">
+                <h4 class="fs-20 font-w600  me-auto">Company View</h4>
+                <div>
+                    <a href="/employers/company_create" class="btn btn-primary me-3 btn-sm">Add New</a>
+                    <a href="/employers/companies_list" class="btn btn-secondary btn-sm me-3">List </a>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-xl-3 col-xxl-4">
+                    <div class="row">
+                        <div class="col-xl-12">
+
+                            <div class="card">
+                                <div class="card-header border-0 pb-0">
+                                    <h4 class="fs-20 mb-0">Company Logo</h4>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <img style="height: 80px" class="rounded-circle" src="/db_assets/p-images/<%=companyLogo%>">
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header border-0 pb-0">
+                                    <h4 class="fs-20 mb-0">Overview</h4>
+                                </div>
+                                <div class="card-body pt-4">
+                                    <div class="mb-3 d-flex">
+                                        <h5 class="mb-1 fs-14 custom-label">Company Name:</h5>
+                                        <span><%= companyName%></span>
+                                    </div>
+
+                                    <div class="mb-3 d-flex">
+                                        <h5 class="mb-1 fs-14 custom-label">No Of Employees:</h5>
+                                        <span><%=comp_team_size%></span>
+                                    </div>
+
+                                    <div class="mb-3 d-flex">
+                                        <h5 class="mb-1 fs-14 custom-label">Established Date:</h5>
+                                       <%
+                                       const date = new Date(companyEstablished);
+                                       const options = { day: '2-digit', month: 'short', year: 'numeric' };
+                                       const formattedDateParts = date.toLocaleDateString('en', options).split(' ');
+                                       const formattedDate = `${formattedDateParts[1]} ${formattedDateParts[0]}, ${formattedDateParts[2]}`;
+                                         %>
+                                        <span><%=formattedDate%></span>
+                                    </div>
+                                    <div class="mb-3 d-flex">
+                                        <h5 class="mb-1 fs-14 custom-label">Email:</h5>
+                                        <span><%=companyEmail%></span>
+                                    </div>
+                                    <div class="mb-3 d-flex">
+                                        <h5 class="mb-1 fs-14 custom-label">Phone:</h5>
+                                        <span><%=companyPhone%></span>
+                                    </div>
+                                    <div class="mb-3 d-flex">
+                                        <h5 class="mb-1 fs-14 custom-label">Posted Date:</h5>
+                                        <%
+                                        const create_at = new Date(created_at);
+                                        const set_format = { day: '2-digit', month: 'short', year: 'numeric' };
+                                        const formatDate = create_at.toLocaleDateString('en', set_format).split(' ');
+                                        const created_at_date = `${formatDate[1]} ${formatDate[0]}, ${formatDate[2]}`;
+                                          %>
+                                        <span><%=created_at_date%></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-xxl-8">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-header d-block">
+                                    <h4 class="fs-20 d-block"><a href="javascript:void(0);">Name && Address</a></h4>
+                                    <div class="d-block">
+                                        <span class="me-2"><a href="javascript:void(0);"><i class="fas fa-briefcase me-2"></i><%=companyName%></a></span>
+                                        <span class="me-2"><a href="javascript:void(0);"><i class="fas fa-map-marker-alt me-2"></i><%=companyAddress%></a></span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="fs-20 mb-3">Company Introduction:</h4>
+                                    <div class="row mb-3">
+                                        <div class="col-xl-12">
+                                            <div class="col-lg-12 ms-12">
+                                                <%= description.replace(/<\/?p>/g, '') %>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--**********************************
+        Content body end
+    ***********************************-->
+
+    <%- include('../partials/footer') %>  

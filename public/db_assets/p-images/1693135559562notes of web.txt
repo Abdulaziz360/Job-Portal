@@ -1,0 +1,15 @@
+HOW WEBSITE WORKS ?
+    
+    1 HTML->Body
+    2 CSS ->beauty
+    3 JS ->brain
+
+
+
+___________________________________________________________________________________________________________________
+
+meta tag
+  meta mean information about information.
+___________________________________________
+website:source splash.............
+(this website is for rendom images)

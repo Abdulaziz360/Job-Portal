@@ -1,0 +1,134 @@
+<%- include('../partials/main_header') %>
+<%- include('../partials/navebar_header') %>
+<%- include('../partials/side_bar') %>
+    <style>
+        .dropup, .dropend, .dropdown, .dropstart {
+            position: relative;
+            display: inline-flex;
+        }
+        li {
+            font-weight: 600;
+            list-style: none;
+            color: red;
+        }
+        td {
+            font-size: 12px !important;
+        }
+        th {
+            font-size: 14px !important;
+            font-weight: 800 !important;
+        }
+    </style>
+    <div class="content-body" style="min-height: 788px;">
+        <!-- row -->
+        <div class="container-fluid">
+            <div class="d-flex align-items-center mb-4 flex-wrap">
+                <h4 class="fs-20 font-w600  me-auto">Saved Jobs List</h4>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <%if(saved_jobs==''){%>
+                        <div class="row p-2 m-auto">
+                            <div class="alert alert-secondary alert-alt solid fade show" role="alert">
+                                <h4 class="text-light fw-bold">Result Not Found</h4>
+                            </div>
+                        </div>
+                    <%}%>
+
+                    <%if(saved_jobs!=''){%>
+                        <div class="table-responsive">
+                            <div>
+                                <table class="table display mb-5 dataTablesCard job-table table-responsive-xl card-table dataTable no-footer">
+                                    <thead>
+                                    <tr role="row">
+                                        <th class="sorting_asc" tabindex="0"  style="width: 23.8594px;">No</th>
+                                        <th class="sorting"   style="width: 189.812px;">Title</th>
+                                        <th class="sorting"   style="width: 50.7344px;">Image</th>
+                                        <th class="sorting"   style="width: 50.7344px;">Category</th>
+                                        <th class="sorting"   style="width: 50.7344px;">Company</th>
+                                        <th class="sorting"   style="width: 93.9219px;">Employer</th>
+                                        <th class="sorting"   style="width: 93.9219px;">Job Type</th>
+
+                                        <th class="sorting"    style="width: 152.766px;">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- <?php $i = 0; ?> -->
+                                    <%for(let i=0;i< saved_jobs.length;i++){%>
+                                        <!-- @php
+                                            $row = \App\Helpers\AppHelper::instance()->getJobDetail($ajob->job_id);
+                                            $c_id = $row->category_id;
+                                            $cmp_id = $row->comp_id;
+                                            $category = \App\Helpers\AppHelper::instance()->getCategoryInfo($c_id);
+                                            $company = \App\Helpers\AppHelper::instance()->getCompanyInfo($cmp_id);
+                                            $cdate =  date("d M, Y", strtotime($row->job_close_date));
+                                            $jstatus = App\Helpers\AppHelper::instance()->getCaJobStatus($ajob->status);
+                                             $status = $jstatus[1];
+                                             $bg_color = $jstatus[0];
+                                             $emp = App\Helpers\AppHelper::instance()->getEmpInfo($ajob->emp_id);
+                                            $i++;
+                                        @endphp -->
+                                        <tr role="row" class="odd">
+                                            <td class="sorting_1"><%=i+1%></td>
+                                            <td><%=saved_jobs[i].job_name%></td>
+                                            <%for(let j=0;j< jobs.length;j++){%>
+                                                <%if(saved_jobs[i].comp_name==jobs[j].company && saved_jobs[i].job_name==jobs[j].job_title){%>
+                                            <td class="wspace-no"><img style="height: 30px; width: auto;" class="rounded-circle img-fluid" src="/db_assets/p-images/<%=jobs[j].job_image%>" alt="" width="100"></td>
+                                              <%}%>
+                                            <%}%>
+                                            <%for(let c=0;c< jobs.length;c++){%>
+                                                <%if(saved_jobs[i].category_name==jobs[c].category && saved_jobs[i].job_name==jobs[c].job_title){%>
+                                                <td><%=jobs[c].category%></td>
+                                            <%}%>
+                                            <%}%>
+                                            <%for(let c=0;c< jobs.length;c++){%>
+                                                <%if(saved_jobs[i].comp_name==jobs[c].company && saved_jobs[i].job_name==jobs[c].job_title){%>
+                                                    <td><%=jobs[c].company%></td>
+                                            <%}%>
+                                            <%}%>
+                                            <%for(let e=0;e< employer.length;e++){%>
+                                                <%if(saved_jobs[i].emp_name==employer[e].lname){%>
+                                                    <td>
+                                                        
+                                                        <a title="View Employer Profile"  href="/candidates/emp-profile/<%=employer[e]._id%>/<%=i+1%>" class="mr-2">
+                                                            <%=employer[e].lname%>
+                                                        </a>
+                                                    </td>
+                                                   
+                                            <%}%>
+                                            <%}%>
+                                            <%for(let c=0;c< jobs.length;c++){%>
+                                                <%if(saved_jobs[i].comp_name==jobs[c].company && saved_jobs[i].job_name==jobs[c].job_title){%>
+                                                    <td><%=jobs[c].job_type%></td>
+                                            <%}%>
+                                            <%}%>
+
+                                            <td>
+                                                <div class="action-buttons d-flex justify-content-end">
+                                                    <a href="/candidates/job-detail/<%=saved_jobs[i].job_id%>/<%=i+1%>" class="btn btn-success light mr-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-main-icon" width="24px" height="24px" viewBox="0 0 32 32" x="0px" y="0px"><g data-name="Layer 21"><path d="M29,14.47A15,15,0,0,0,3,14.47a3.07,3.07,0,0,0,0,3.06,15,15,0,0,0,26,0A3.07,3.07,0,0,0,29,14.47ZM16,21a5,5,0,1,1,5-5A5,5,0,0,1,16,21Z" fill="#000000" fill-rule="nonzero"></path><circle cx="16" cy="16" r="3" fill="#000000" fill-rule="nonzero"></circle></g></svg>
+                                                    </a>
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <%}%>
+
+                                    <div class="d-flex justify-content-start">
+                                        <!-- {!! $applied_Jobs->withQueryString()->links('pagination::bootstrap-4') !!} -->
+                                    </div>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    <%}%>
+
+
+                </div>
+            </div>
+        </div>
+<%- include('../partials/footer') %>
+
+
+

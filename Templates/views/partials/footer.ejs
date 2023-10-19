@@ -1,0 +1,88 @@
+<!-- FOOTER START -->
+<footer class="footer-light">
+  <div class="container">
+      <!-- FOOTER BLOCKES START -->
+      <div class="footer-top">
+          <div class="row">
+
+              <div class="col-lg-3 col-md-12">
+
+                  <div class="widget widget_about">
+                      <div class="logo-footer clearfix">
+                          <a href="/"><img src="/app_assets/images/jobic_f_logo.png" alt=""></a>
+                      </div>
+                      <ul class="ftr-list">
+                          <li><p><span>Address :</span>Sahiwal,Punjab,Pakistan</p></li>
+                          <li><p><span>Email :</span>jobick@contactgmail.com</p></li>
+                          <li><p><span>Call :</span>0309123456</p></li>
+                      </ul>
+                  </div>
+
+              </div>
+
+              <div class="col-lg-9 col-md-12">
+                  <div class="row">
+                      <div class="col-lg-4 col-md-4 col-sm-12">
+                          <div class="widget widget_services ftr-list-center">
+                              <h3 class="widget-title">For Candidate</h3>
+                              <ul>
+                                  <li><a href="{{ url('/jobs') }}">Jobs</a></li>
+                                  <li><a href="{{ url('/') }}">Home</a></li>
+                                  <li><a target="_blank" href="{{ url('/candidate/dashboard') }}">Dashboard</a></li>
+                              </ul>
+                          </div>
+                      </div>
+
+                      <div class="col-lg-4 col-md-4 col-sm-12">
+                          <div class="widget widget_services ftr-list-center">
+                              <h3 class="widget-title">For Employers</h3>
+                              <ul>
+                                  <li><a href="{{url('/candidates')}}">Candidates</a></li>
+                                  <li><a href="{{ url('/') }}">Home</a></li>
+                                  <li><a target="_blank" href="{{ url('/employer/dashboard') }}">Dashboard</a></li>
+                              </ul>
+                          </div>
+                      </div>
+
+                      <div class="col-lg-4 col-md-4 col-sm-12">
+                          <div class="widget widget_services ftr-list-center">
+                              <h3 class="widget-title">Helpful Resources</h3>
+                              <ul>
+                                  <li><a href="{{ url('/faq') }}">FAQs</a></li>
+                                  <li><a href="{{ url('/about-us') }}">About us</a></li>
+                                  <li><a href="{{ url('/contact-us') }}">Contact us</a></li>
+                              </ul>
+                          </div>
+                      </div>
+
+                  </div>
+
+              </div>
+
+          </div>
+      </div>
+      <!-- FOOTER COPYRIGHT -->
+      <div class="footer-bottom">
+
+          <div class="footer-bottom-info">
+
+              <div class="footer-copy-right">
+                  <span class="copyrights-text">Copyright © {{ date('Y') }} by Jobick All Rights Reserved.</span>
+              </div>
+              <ul class="social-icons">
+                  <li><a href="javascript:void(0);" class="fab fa-facebook-f"></a></li>
+                  <li><a href="javascript:void(0);" class="fab fa-twitter"></a></li>
+                  <li><a href="javascript:void(0);" class="fab fa-instagram"></a></li>
+                  <li><a href="javascript:void(0);" class="fab fa-youtube"></a></li>
+              </ul>
+
+          </div>
+
+      </div>
+
+  </div>
+
+</footer>
+<!-- FOOTER END -->
+
+<button class="scroltop"><span class="fa fa-angle-up  relative" id="btn-vibrate"></span></button>

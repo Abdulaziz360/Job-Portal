@@ -1,0 +1,171 @@
+<%- include('../partials/main_header') %>
+<%- include('../partials/navebar_header') %>
+<%- include('../partials/side_bar') %>
+<style>
+    .table tbody tr td:last-child {
+        text-align: center !important;
+    }
+    li {
+        font-weight: 600;
+        list-style: none;
+        color: red;
+    }
+    td {
+        font-size: 12px !important;
+    }
+    th {
+        font-size: 14px !important;
+        font-weight: 800 !important;
+    }
+</style>
+<div class="content-body" style="min-height: 788px;">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="d-flex align-items-center mb-4 flex-wrap">
+            <h4 class="fs-20 font-w600  me-auto">Candidate List</h4>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <% if (applicants == '') { %>
+                    <div class="row p-2 m-auto">
+                        <div class="alert alert-secondary alert-alt solid fade show" role="alert">
+                            <h4 class="text-light fw-bold">Result Not Found</h4>
+                        </div>
+                    </div>
+                <% } %>
+
+                <% if (applicants != '') { %>
+                    <div class="table-responsive">
+                        <div id="example5_wrapper" class="dataTables_wrapper no-footer">
+                            <table class="table display mb-4 dataTablesCard job-table table-responsive-xl card-table dataTable no-footer" id="example5" role="grid" aria-describedby="example5_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting" style="width: 38.7656px;">No</th>
+                                        <th class="sorting" style="width: 170.25px;">Position</th>
+                                        <th class="sorting" style="width: 65.25px;">Name</th>
+                                        <th class="sorting" style="width: 163.438px;">Email</th>
+                                        <th class="sorting" style="width: 144.25px;">Phone Number</th>
+                                        <th class="sorting" style="width: 107.859px;">Applied On</th>
+                                        <th class="sorting" style="width: 96.4375px;">Status</th>
+                                        <th class="sorting" style="width: 96.4375px;">Change Status</th>
+                                        <th class="text-center sorting" style="width: 307.766px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Loop through applicants -->
+                                    <% for (let i = 0; i < applicants.length; i++) { %>
+                                        <tr role="row" class="odd">
+                                            <td class="sorting_1"><%=i+1%></td>
+                                            <td><%= applicants[i].job_name %></td>
+                                            <td><%= applicants[i].lname %></td>
+                                            <td><%= applicants[i].email %></td>
+                                            <td><%= applicants[i].phone %></td>
+                                          
+                                            <%
+                                                let a_date=new Date(applicants[i].apply_at)
+                                                let a_options={day:'2-digit',month:'short',year:'numeric'}
+                                                let a_format=a_date.toLocaleDateString('en-Us',a_options).split(' ')
+                                                let apply_on=`${a_format[1]} ${a_format[0]}, ${a_format[2]}`
+                                            %>
+                                            <td><%=apply_on%></td>
+                                            <% let status = '' %>
+                                            <% let bg = '' %>
+                                            <% if (applicants[i].status == 1) { %>
+                                                <% status = 'Accepted' %>
+                                                <% bg = 'success' %>
+                                            <% } else if (applicants[i].status == 0) { %>
+                                                <% status = 'Pending' %>
+                                                <% bg = 'danger' %>
+                                            <% } else if (applicants[i].status == 3) { %>
+                                                <% status = 'Rejected' %>
+                                                <% bg = 'danger' %>
+                                            <% }  else if (applicants[i].status == 2) { %>
+                                                <% status = 'Hired' %>
+                                                <% bg = 'success' %>
+                                            <% } %>
+                                            <td><span  class="btn btn-<%= bg %> btn-sm btn-rounded"><%= status %></span></td>
+                                            <td class="action-btn">
+                                                <%let val='' %>
+                                                <form id="statusForm<%=i%>" action="/employers/apply-job-status" method="POST">
+                                                    <input type="hidden" name="_id" value="<%=applicants[i]._id%>">
+                                                    <input type="hidden" name="job_id" value="<%=applicants[i].job_id%>">
+                                                    <input type="hidden" name="cand_id" value="<%= applicants[i].candidate_id %>">
+                                                    <input type="hidden" name="status" value="<%=val%>"> <!-- Set status to 1 for Accept -->
+                                            
+                                                    <div class="dropdown ms-auto text-left">
+                                                        <div class="btn-link" data-bs-toggle="dropdown">
+                                                            <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg>
+                                                        </div>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <button type="submit" class="dropdown-item"data-status_value="1" val='1'onclick="updateStatus(<%=i%>,1);">Accept Candidate</button>
+                                                            <button type="submit" class="dropdown-item" data-status_value="3"val='3' onclick="updateStatus(<%=i%>,3);">Reject Candidate</button>
+                                                            <button type="submit" class="dropdown-item" data-status_value="2"val='2' onclick="updateStatus(<%=i%>,2);">Hired Candidate</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                            <td class="action-btn">
+                                                <span>
+                                                    <a title="Candidate Profile" href="/employers/candidate-profile/<%=applicants[i].candidate_id%>"><i class="fas fa-eye"></i></a>
+                                                </span>
+                                                <span>
+                                                    <%if(applicants[i].resume==''){%>
+                                                        <i  class="fas fa-download text-danger"></i>
+                                                     <%}else{%>   
+                                                    <a title="Download Resume" target="_blank" href="/db_assets/pdf_files/<%=applicants[i].resume%>"><i  class="fas fa-download text-success"></i></a>
+                                                    <%}%>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script>
+    // Handle form submission via AJAX
+   // JavaScript function to update status
+function updateStatus(index, newStatus) {
+    // Update the status field in the form
+    $("#statusForm" + index + " input[name='status']").val(newStatus);
+
+    // Submit the form via AJAX
+    $("#statusForm" + index).submit();
+}
+
+// Handle form submissions
+$(document).on("submit", "form[id^='statusForm']", function (e) {
+    // e.preventDefault();
+    let formData = new FormData(this);
+
+    $.ajax({
+        url: $('/employers/apply-job-status').attr("action"),
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        cache: false,
+        async: false,
+        success: function (success) {
+            let response = JSON.parse(success);
+            if (response.status == 200) {
+                toastr.success('Your job status has been successfully changed.', 'Congratulations!', { timeOut: 8000, positionClass: 'toast-bottom-right', toastClass: 'success-custom-toast', progressBar: 'true' });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 4000);
+            }
+        }
+    });
+});
+
+</script>
+<%- include('../partials/footer') %>

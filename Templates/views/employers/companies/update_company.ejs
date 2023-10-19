@@ -1,0 +1,107 @@
+<%- include('../partials/main_header') %>
+<%- include('../partials/navebar_header') %>
+<%- include('../partials/side_bar') %>
+    <style>
+        .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-blurred {
+            min-height: 12.375rem;
+            background: #F8F8F8;
+            height: 400px !important;
+        }
+        li {
+            font-weight: 600;
+            list-style: none;
+            color: red;
+        }
+    </style>
+    <div class="content-body" style="min-height: 788px;">
+        <!-- row -->
+        <div class="container-fluid">
+            <div class="d-flex align-items-center mb-4">
+                <h4 class="fs-20 font-w600 mb-0 me-auto">Update Company</h4>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                           
+                            <form method="POST" action="" enctype="multipart/form-data">
+
+                                <div class="row">
+                                    <div class="col-xl-6  col-md-6 mb-4">
+                                        <label class="form-label font-w600">Name<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input type="text" value="<%=companyName%>" class="form-control solid @error('comp_name') is-invalid @enderror" name="comp_name" placeholder="Company Name">
+                                        <x-input-error :messages="$errors->get('comp_name')" class="mt-1" />
+                                    </div>
+
+
+                                    <div class="col-xl-6  col-md-6 mb-4">
+                                        <label class="form-label font-w600">Company Logo:<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input type="file" class="form-control solid @error('comp_logo') is-invalid @enderror" name="comp_logo"value="<%=companyLogo%>">
+                                        <x-input-error :messages="$errors->get('comp_logo')" class="mt-1" />
+                                    </div>
+
+                                    <div class="col-xl-6  col-md-6 mb-4">
+                                        <label class="form-label font-w600">Established Date<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input type="date" value="<%=companyEstablished%>" class="form-control solid @error('comp_established') is-invalid @enderror" name="comp_established" placeholder="Company Established Date" aria-label="name">
+                                        <x-input-error :messages="$errors->get('comp_established')" class="mt-1" />
+                                    </div>
+
+                                    <div class="col-xl-6  col-md-6 mb-4">
+                                        <label class="form-label font-w600">Email<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input type="text" value="<%=companyEmail%>" class="form-control solid @error('comp_email') is-invalid @enderror"  name="comp_email" placeholder="Company Email">
+                                        <x-input-error :messages="$errors->get('comp_email')" class="mt-1" />
+                                    </div>
+
+
+                                    <div class="col-xl-6  col-md-6 mb-4">
+                                        <label class="form-label font-w600">Phone<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input type="number"  value="<%=companyPhone%>" class="form-control solid @error('comp_phone') is-invalid @enderror" name="comp_phone" placeholder="Company Phone">
+                                        <x-input-error :messages="$errors->get('comp_phone')" class="mt-1" />
+                                    </div>
+
+                                    <div class="col-xl-6  col-md-6 mb-4">
+                                        <label class="form-label font-w600">Team Size<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input type="number"  value="<%=comp_team_size%>" class="form-control solid @error('comp_team_size') is-invalid @enderror" name="comp_team_size" placeholder="Company Team Size">
+                                        <x-input-error :messages="$errors->get('comp_team_size')" class="mt-1" />
+                                    </div>
+
+                                    <div class="col-xl-12  col-md-12 mb-4">
+                                        <label class="form-label font-w600">Full Address:<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input type="text" value="<%=companyAddress%>" class="form-control solid @error('full_address') is-invalid @enderror" name="full_address" placeholder="Full Address" aria-label="name">
+                                        <x-input-error :messages="$errors->get('full_address')" class="mt-1" />
+                                    </div>
+
+
+
+                                    <div class="col-xl-12 mb-4">
+                                        <label class="form-label font-w600">Short Introduction :<span class="text-danger scale5 ms-2">*</span></label>
+                                        <textarea class="form-control solid @error('description') is-invalid @enderror" style="height: 330px;" id="div_editor1" name="description">
+                                            <%= description.replace(/<\/?p>/g, '') %>
+                                        </textarea>
+                                        <x-input-error :messages="$errors->get('description')" class="mt-1" />
+                                    </div>
+
+                                    <div class="card-footer text-end">
+                                        <div>
+                                            <button type="submit" class="btn btn-secondary">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- @endsection -->
+<!-- @section('script') -->
+    <!-- <script type="text/javascript" src="{{ asset('db_assets/richtexteditor/rte.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('db_assets/richtexteditor/plugins/all_plugins.js')}}"></script>
+    <script>
+        var editor1 = new RichTextEditor("#div_editor1");
+    </script> -->
+<%- include('../partials/footer') %>  
